@@ -4,18 +4,16 @@ import 'package:flutter/widgets.dart';
 class WeatherInfoCard extends StatefulWidget {
   final String title;
   const WeatherInfoCard({super.key, required this.title});
-  
+
   @override
   State<WeatherInfoCard> createState() => _WeatherInfoCardState();
 }
 
 class _WeatherInfoCardState extends State<WeatherInfoCard> {
-
   @override
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: double.infinity,
         child: Card(
           child: Column(
             children: [
@@ -23,17 +21,18 @@ class _WeatherInfoCardState extends State<WeatherInfoCard> {
                 padding: const EdgeInsets.only(left: 8.0, top: 8.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(widget.title),
+                  child: Text(widget.title,
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary)),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 40.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 40.0),
                 child: Text('20km/h',
-                  style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 40,
-                  )
-                ),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 40,
+                    )),
               ),
             ],
           ),
