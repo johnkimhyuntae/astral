@@ -23,7 +23,9 @@ class _WeatherInfoCardState extends State<WeatherInfoCard> {
                   alignment: Alignment.centerLeft,
                   child: Text(widget.title,
                       style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary)),
+                          color: Theme.of(context).colorScheme.primary
+                          ),
+                        ),
                 ),
               ),
               Padding(
@@ -32,7 +34,8 @@ class _WeatherInfoCardState extends State<WeatherInfoCard> {
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.primary,
                       fontSize: 40,
-                    )),
+                      ),
+                    ),
               ),
             ],
           ),
