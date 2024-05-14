@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'weather_info_card.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -90,9 +91,9 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: GridView.extent(
+        child: GridView.count(
           padding: const EdgeInsets.all(20),
-          maxCrossAxisExtent: 200,
+          crossAxisCount: 2,
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
           children: <Widget>[
@@ -103,33 +104,9 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              color: Colors.teal[100],
-              child: const Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text("Wind speed"),
-                  Text('20km/h',
-                    style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 45,
-                    )
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              color: Colors.teal[100],
-              child: const Column(
-                children: [
-                  Text("Moonrise",),
-                  Text('9.08pm'),
-                ],
-              ),
-            ),
-            const WeatherInfoCard(),
+            const WeatherInfoCard(title:"foo"),
+            const WeatherInfoCard(title:"bar"),
+            const WeatherInfoCard(title:"baz"),
           ],
         ),
       ),
@@ -142,42 +119,3 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class WeatherInfoCard extends StatefulWidget {
-  const WeatherInfoCard({super.key});
-
-  @override
-  State<WeatherInfoCard> createState() => _WeatherInfoCardState();
-}
-
-class _WeatherInfoCardState extends State<WeatherInfoCard> {
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: SizedBox(
-        width: double.infinity,
-        child: Card(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 8.0, top: 8.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text("Wind speed")
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 40.0),
-                child: Text('20km/h',
-                  style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 40,
-                  )
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
