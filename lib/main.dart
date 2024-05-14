@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(const MyApp());
@@ -89,21 +90,11 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: GridView.extent(
+          padding: const EdgeInsets.all(20),
+          maxCrossAxisExtent: 200,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
           children: <Widget>[
             const Text(
               'Number of stars seen today:',
@@ -112,6 +103,33 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              color: Colors.teal[100],
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text("Wind speed"),
+                  Text('20km/h',
+                    style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 45,
+                    )
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              color: Colors.teal[100],
+              child: const Column(
+                children: [
+                  Text("Moonrise",),
+                  Text('9.08pm'),
+                ],
+              ),
+            ),
+            const WeatherInfoCard(),
           ],
         ),
       ),
@@ -120,6 +138,46 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class WeatherInfoCard extends StatefulWidget {
+  const WeatherInfoCard({super.key});
+
+  @override
+  State<WeatherInfoCard> createState() => _WeatherInfoCardState();
+}
+
+class _WeatherInfoCardState extends State<WeatherInfoCard> {
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: SizedBox(
+        width: double.infinity,
+        child: Card(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 8.0, top: 8.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text("Wind speed")
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 40.0),
+                child: Text('20km/h',
+                  style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 40,
+                  )
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
