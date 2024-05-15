@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class WeatherInfoCard extends StatefulWidget {
+
   final String title;
-  const WeatherInfoCard({super.key, required this.title});
+  final String value;
+
+  const WeatherInfoCard({super.key, required this.title, required this.value});
 
   @override
   State<WeatherInfoCard> createState() => _WeatherInfoCardState();
@@ -28,15 +31,14 @@ class _WeatherInfoCardState extends State<WeatherInfoCard> {
                         ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 40.0),
-                child: Text('20km/h',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontSize: 40,
-                      ),
-                    ),
+              const SizedBox(height: 30),
+              Text(widget.value,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 40,
+                ),
               ),
+
             ],
           ),
         ),
