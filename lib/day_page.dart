@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'weather_info_card.dart';
+import 'time_weather_info_card.dart';
 
 class DayPage extends StatelessWidget {
   const DayPage({
@@ -70,7 +71,7 @@ class DayPage extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 12),
           child: StaggeredGrid.count(
             // Staggered grid view, customise size of each tile
             crossAxisCount: 2,
@@ -90,7 +91,7 @@ class DayPage extends StatelessWidget {
               StaggeredGridTile.count(
                 crossAxisCellCount: 2,
                 mainAxisCellCount: 1,
-                child: WeatherInfoCard(title: "baz", value: "qux"),
+                child: TimeWeatherInfoCard(),
               ),
               StaggeredGridTile.count(
                 crossAxisCellCount: 1,
