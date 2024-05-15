@@ -2,7 +2,6 @@ import 'package:astral/log_entry.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:intl/intl.dart';
 
 
 class LogPageBody extends StatelessWidget {
