@@ -20,32 +20,66 @@ class _LogEntryState extends State<LogEntry> {
         height: 160,
         width: double.infinity,
         child: Card(
-          child: Row(
+          child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0, top: 8.0),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(widget.title,
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary
-                          ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, top: 8.0),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(widget.title,
+                          style: TextStyle(color: Theme.of(context).colorScheme.primary),
                         ),
-                ),
+                      ),
+                  ),
+                  const Spacer(flex: 20),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0, top: 8.0),
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Text(DateFormat("EEEE, d MMMM y").format(widget.date),
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary
+                              ),
+                            ),
+                    ),
+                  ),
+                ],
               ),
-              Spacer(flex: 20),
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0, top: 8.0),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: Text(DateFormat("EEEE, d MMMM y").format(widget.date),
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, top: 8.0),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: SizedBox(
+                        height: 100,
+                        width: 200,
+                        child:
+                          Text("blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah ",
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary
                           ),
-                        ),
-                ),
+                          ),
+                      )
+                    ),
+                  ),
+                  const Spacer(flex: 20),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0, top: 8.0),
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Text("picture here.",
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary
+                              ),
+                            ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ]
           ),
         ),
       ),
