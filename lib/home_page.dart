@@ -50,7 +50,7 @@ class TopBar extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     backgroundColor: topBg,
                     shape: const CircleBorder()),
-                child: const Icon(Icons.format_list_bulleted, size: 30)),
+                child: const Icon(Icons.format_list_bulleted, size: 25)),
             const LocationField(),
             ElevatedButton(
               onPressed: () {},
@@ -96,7 +96,7 @@ class LocationField extends StatelessWidget {
               style: BorderStyle.none,
             ),
           ),
-          suffixIcon: const Icon(Icons.search, size: 30),
+          suffixIcon: const Icon(Icons.search, size: 25),
         ),
       ),
     );
