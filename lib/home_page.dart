@@ -61,7 +61,7 @@ class TopBar extends StatelessWidget {
               ),
               child: const Icon(
                 Icons.edit,
-                size: 30,
+                size: 25,
               ),
             ),
           ],
