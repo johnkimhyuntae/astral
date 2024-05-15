@@ -23,10 +23,43 @@ class DayPage extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(15.0),
-          child: SizedBox(
-            height: 130,
-            child: Image.asset(
-              "assets/images/moon.png",
+          child: Center(
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                SizedBox(
+                  height: 130,
+                  child: Image.asset(
+                    "assets/images/moon.png",
+                    color: Colors.black.withOpacity(0.75),
+                    colorBlendMode: BlendMode.dstIn,
+                  ),
+                ),
+                const Text(
+                  "14°C",
+                  style: TextStyle(
+                    color: Color.fromRGBO(253, 245, 230, 1.0),
+                    fontSize: 36,
+                    shadows: <Shadow>[
+                      Shadow(
+                        offset: Offset(3.0, 3.0),
+                        blurRadius: 8.0,
+                        color: Colors.black,
+                      ),
+                      Shadow(
+                        offset: Offset(3.0, 3.0),
+                        blurRadius: 8.0,
+                        color: Colors.black,
+                      ),
+                      Shadow(
+                        offset: Offset(3.0, 3.0),
+                        blurRadius: 8.0,
+                        color: Colors.black,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -38,7 +71,8 @@ class DayPage extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 6),
-          child: StaggeredGrid.count( // Staggered grid view, customise size of each tile
+          child: StaggeredGrid.count(
+            // Staggered grid view, customise size of each tile
             crossAxisCount: 2,
             crossAxisSpacing: 6,
             mainAxisSpacing: 6,
@@ -64,14 +98,14 @@ class DayPage extends StatelessWidget {
                 child: WeatherInfoCard(title: "bar", value: "baz"),
               ),
               StaggeredGridTile.count(
-                crossAxisCellCount: 2,
-                mainAxisCellCount: 2,
-                child: WeatherInfoCard(title: "foo", value: "bar"),
-              ),
-              StaggeredGridTile.count(
                 crossAxisCellCount: 1,
                 mainAxisCellCount: 1,
                 child: WeatherInfoCard(title: "bar", value: "baz"),
+              ),
+              StaggeredGridTile.count(
+                crossAxisCellCount: 2,
+                mainAxisCellCount: 2,
+                child: WeatherInfoCard(title: "foo", value: "bar"),
               ),
             ],
           ),
@@ -98,7 +132,7 @@ class DayPage extends StatelessWidget {
 //             ),
 //             Flexible(
 //               fit: FlexFit.loose,
-//               child: 
+//               child:
 //             ),
 //           ],
 //         ),
