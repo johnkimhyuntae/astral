@@ -1,6 +1,8 @@
+import 'package:astral/astral_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'weather_info_card.dart';
@@ -9,13 +11,11 @@ import 'time_weather_info_card.dart';
 class DayPage extends StatelessWidget {
   const DayPage({
     super.key,
-    required this.date,
   });
 
-  final DateTime date;
-
-  String dateString() {
-    return DateFormat("EEEE, d MMMM y").format(date);
+  String dateString(BuildContext context) {
+    var appState = context.watch<AstralState>();
+    return DateFormat("EEEE, d MMMM y").format(appState.currentDateTime);
   }
 
   @override
@@ -66,7 +66,7 @@ class DayPage extends StatelessWidget {
         ),
         Center(
           child: Text(
-            dateString(),
+            dateString(context),
             style: const TextStyle(color: Colors.white, fontSize: 28),
           ),
         ),
@@ -81,12 +81,12 @@ class DayPage extends StatelessWidget {
               StaggeredGridTile.count(
                 crossAxisCellCount: 1,
                 mainAxisCellCount: 1,
-                child: WeatherInfoCard(title: "WIND SPEED", value: "20 km/h"),
+                child: WeatherInfoCard("wind-speed"),
               ),
               StaggeredGridTile.count(
                 crossAxisCellCount: 1,
                 mainAxisCellCount: 1,
-                child: WeatherInfoCard(title: "VISIBILITY", value: "5 km"),
+                child: WeatherInfoCard("wind-speed"),
               ),
               StaggeredGridTile.count(
                 crossAxisCellCount: 2,
@@ -96,17 +96,17 @@ class DayPage extends StatelessWidget {
               StaggeredGridTile.count(
                 crossAxisCellCount: 1,
                 mainAxisCellCount: 1,
-                child: WeatherInfoCard(title: "bar", value: "baz"),
+                child: WeatherInfoCard("wind-speed"),
               ),
               StaggeredGridTile.count(
                 crossAxisCellCount: 1,
                 mainAxisCellCount: 1,
-                child: WeatherInfoCard(title: "bar", value: "baz"),
+                child: WeatherInfoCard("wind-speed"),
               ),
               StaggeredGridTile.count(
                 crossAxisCellCount: 2,
                 mainAxisCellCount: 2,
-                child: WeatherInfoCard(title: "foo", value: "bar"),
+                child: WeatherInfoCard("wind-speed"),
               ),
             ],
           ),

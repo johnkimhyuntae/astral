@@ -8,8 +8,8 @@ import 'home_page.dart';
 
 const Color topBg = Color.fromRGBO(253, 245, 230, 1.0);
 
-class WeatherInfoExpanded extends StatelessWidget {
-  const WeatherInfoExpanded(
+class WeatherInfoExpandedPage extends StatelessWidget {
+  const WeatherInfoExpandedPage(
       {super.key, required this.activated});
 
   final Widget activated;
@@ -23,32 +23,23 @@ class WeatherInfoExpanded extends StatelessWidget {
             Column(
               children: [
                 const TopBar(),
-                Flexible(child: DayPage(date: DateTime.now())),
+                Flexible(child: DayPage()),
               ],
             ),
-            Column(
-              children: [
-                ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(10),
-                        backgroundColor: topBg,
-                        shape: const CircleBorder()),
-                    child: const Padding(
-                        padding: EdgeInsets.only(left: 10),
-                        child: Icon(IconData(0xe093,
-                            fontFamily: 'MaterialIcons',
-                            matchTextDirection: true)))),
+            InkWell(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Container(
+                color: Color.fromRGBO(0, 0, 0, 0.7),
+              ),
+            ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(40.0),
+                    padding: const EdgeInsets.all(30.0),
                     child: activated,
                   ),
-                ),
-              ],
-            )
+            ),
           ],
         ),
       ),

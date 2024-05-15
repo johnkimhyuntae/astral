@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 import 'home_page.dart';
+import 'astral_state.dart';
 
 void main() {
   runApp(const AstralApp());
@@ -33,7 +35,11 @@ class AstralApp extends StatelessWidget {
             onSurface: Colors.black),
       ),
       themeMode: ThemeMode.dark,
-      home: const HomePage(),
+      home: ChangeNotifierProvider(
+        create: (context) => AstralState(),
+        child: const HomePage(),
+      ),
+
       debugShowCheckedModeBanner: false,
     );
   }
