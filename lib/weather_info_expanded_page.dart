@@ -20,9 +20,9 @@ class WeatherInfoExpandedPage extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            Column(
+            const Column(
               children: [
-                const TopBar(),
+                TopBar(),
                 Flexible(child: DayPage()),
               ],
             ),
@@ -31,7 +31,7 @@ class WeatherInfoExpandedPage extends StatelessWidget {
                 Navigator.pop(context);
               },
               child: Container(
-                color: Color.fromRGBO(0, 0, 0, 0.7),
+                color: const Color.fromRGBO(0, 0, 0, 0.7),
               ),
             ),
             Padding(
