@@ -1,4 +1,5 @@
 import 'package:astral/log_entry_expanded.dart';
+import 'package:astral/log_entry_expanded_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -9,7 +10,8 @@ const Color topBg = Color.fromRGBO(253, 245, 230, 1.0);
 class LogEntry extends StatefulWidget {
   final String title;
   final DateTime date;
-  const LogEntry({super.key, required this.title, required this.date});
+  final String log;
+  const LogEntry({super.key, required this.title, required this.date, required this.log});
   
   @override
   State<LogEntry> createState() => _LogEntryState();
@@ -28,10 +30,8 @@ class _LogEntryState extends State<LogEntry> {
             Navigator.push(
               context,
               PageRouteBuilder(
-                pageBuilder: (_, __, ___) => LogEntryExpanded(
-                    title: widget.title,
-                    date: widget.date,
-                ),
+                pageBuilder: (_, __, ___) => LogEntryExpandedPage(
+                  activated: LogEntryExpanded(title: widget.title, date: widget.date, log: widget.log,)),
                 transitionDuration: Duration.zero,
                 reverseTransitionDuration: Duration.zero,
               ),

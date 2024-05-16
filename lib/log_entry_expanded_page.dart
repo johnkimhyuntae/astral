@@ -1,15 +1,17 @@
+import 'package:astral/log_page.dart';
 import 'package:astral/weather_info_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'day_page.dart';
-import 'home_page.dart';
+import 'log_entry.dart';
+import 'log_page_body.dart';
+import 'log_page.dart';
 
 const Color topBg = Color.fromRGBO(253, 245, 230, 1.0);
 
-class WeatherInfoExpandedPage extends StatelessWidget {
-  const WeatherInfoExpandedPage(
+class LogEntryExpandedPage extends StatelessWidget {
+  const LogEntryExpandedPage(
       {super.key, required this.activated});
 
   final Widget activated;
@@ -20,10 +22,9 @@ class WeatherInfoExpandedPage extends StatelessWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            Column(
+            const Column(
               children: [
-                const TopBar(),
-                Flexible(child: DayPage()),
+                Flexible(child: LogPage()),
               ],
             ),
             InkWell(
@@ -35,8 +36,8 @@ class WeatherInfoExpandedPage extends StatelessWidget {
               ),
             ),
             Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: activated,
+                padding: const EdgeInsets.all(30.0),
+                child: activated,
             ),
           ],
         ),

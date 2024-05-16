@@ -7,7 +7,8 @@ const Color topBg = Color.fromRGBO(253, 245, 230, 1.0);
 class LogEntryExpanded extends StatefulWidget {
   final String title;
   final DateTime date;
-  const LogEntryExpanded({super.key, required this.title, required this.date});
+  final String log;
+  const LogEntryExpanded({super.key, required this.title, required this.date, required this.log});
   
   @override
   State<LogEntryExpanded> createState() => _LogEntryExpandedState();
@@ -78,7 +79,7 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
                         alignment: Alignment.center,
                         child: SizedBox(
                           width: (85/100) * width,
-                          child: Text("blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah ",
+                          child: Text(widget.log,
                             style: TextStyle(
                                 fontSize: 16,
                                 color: Theme.of(context).colorScheme.primary
