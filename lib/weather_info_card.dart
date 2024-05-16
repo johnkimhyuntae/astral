@@ -18,12 +18,14 @@ class WeatherInfoCard extends StatelessWidget {
         Navigator.push(
           context,
           PageRouteBuilder(
-            pageBuilder: (_, __, ___) => WeatherInfoExpandedPage(
+            pageBuilder: (_, __, ___) {
+              return WeatherInfoExpandedPage(
               activated: WeatherInfoCardExpanded(
                 title: appState.statIdTitleMap[statId]!,
                 value: appState.statIdValueMap[statId]!,
-              ),
-            ),
+                ),
+              );
+            },
             transitionDuration: Duration.zero,
             reverseTransitionDuration: Duration.zero,
           ),

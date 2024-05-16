@@ -96,7 +96,6 @@ class _AddLogState extends State<AddLog> {
                             },
                             decoration: const InputDecoration(
                               labelText: 'Description',
-                              border: OutlineInputBorder(),
                             ),
                           )
                         )

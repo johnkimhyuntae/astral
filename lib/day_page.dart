@@ -18,9 +18,21 @@ class DayPage extends StatelessWidget {
     return DateFormat("EEEE, d MMMM y").format(appState.currentDateTime);
   }
 
+  
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<AstralState>();
+    ScrollController? c;
+    if (appState.controller == null) {
+      appState.controller = ScrollController();
+      c = appState.controller;
+    }
+    else {
+      double sPos = appState.controller!.offset;
+      c = ScrollController(initialScrollOffset: sPos);
+    }
     return ListView(
+      controller: c,
       children: [
         Padding(
           padding: const EdgeInsets.all(15.0),
