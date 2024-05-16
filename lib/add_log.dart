@@ -28,7 +28,7 @@ class _AddLogState extends State<AddLog> {
     String userTitle = '';
     String userLog = '';
     var uuid = Uuid();
-    DateTime date = appState.currentDateTime;
+    DateTime date = DateTime.now();
 
     return Center(
       child: SizedBox(
@@ -48,16 +48,16 @@ class _AddLogState extends State<AddLog> {
                         child: SizedBox(
                           width: 2 * width / 3,
                           child: TextField(
-                            onChanged: (value) {
-                              // This function is called whenever the user types in the text field
-                              setState(() {
-                                userTitle = value;
-                              });
-                            },
+                            maxLines: 3,
                             decoration: const InputDecoration(
                               labelText: 'Title',
                               border: OutlineInputBorder(),
-                            ),
+                              ),
+                            onChanged: (value) {
+                              // This function is called whenever the user types in the text field
+                              setState(() {userTitle = value;});
+                              print(userTitle);
+                            },
                           )
                         )
                       ),
@@ -95,10 +95,11 @@ class _AddLogState extends State<AddLog> {
                         child: SizedBox(
                           width: (85/100) * width,
                           child: TextField(
-                            onChanged: (value) {
+                            maxLines: 10,
+                            onChanged: (uInput) {
                               // This function is called whenever the user types in the text field
                               setState(() {
-                                userLog = value;
+                                userLog = uInput;
                               });
                             },
                             decoration: const InputDecoration(
@@ -142,6 +143,7 @@ class _AddLogState extends State<AddLog> {
                         color: Colors.red,
                         icon: const Icon(Icons.add),
                         onPressed: () {
+                          print(userTitle);
                           LogData x = LogData(id: uuid.v4(), title: userTitle, date: date, log: userLog, pathToImage: "assets/images/moon.png");
                           appState.logs.add(x);
                           print(appState.logs);

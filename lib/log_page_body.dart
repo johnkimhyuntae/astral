@@ -17,6 +17,7 @@ class LogPageBody extends StatelessWidget {
     var appState = context.watch<AstralState>();
     List<LogEntry> entries = [];
     for (LogData entry in appState.logs) {
+      print(entry.title);
       entries.add(LogEntry(title: entry.title, date: entry.date, log: entry.log));
     };
     return ListView(
