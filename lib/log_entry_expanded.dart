@@ -37,7 +37,7 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: SizedBox(
-                          width: 2 * width / 3,
+                          width: 1.8 * width / 3,
                           child: Text(widget.title,
                             style: TextStyle(
                                 fontSize: 16,
