@@ -64,8 +64,8 @@ class TopBar extends StatelessWidget {
                 shape: const CircleBorder(),
               ),
               child: const Icon(
-                Icons.edit,
-                size: 25,
+                Icons.add,
+                size: 30,
               ),
             ),
           ],

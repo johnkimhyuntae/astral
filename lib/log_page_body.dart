@@ -17,7 +17,7 @@ class LogPageBody extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: <Widget>[
-              LogEntry(title: "A crazy night in Cambridge!", date: DateTime.now()),
+              LogEntry(title: "A crazy night in Cambridge! I can't believe I saw the northen lights in the UK???!!!", date: DateTime.now()),
               LogEntry(title: "Birmingham Aurora???", date: DateTime.now()),
               LogEntry(title: "HOLY SHIT", date: DateTime.now()),
               LogEntry(title: "Night out with the loml", date: DateTime.now()),
