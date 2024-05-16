@@ -17,10 +17,13 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     return Center(
       child: SizedBox(
-        height: double.infinity,
-        width: double.infinity,
+        height: height - 20,
+        width: width - 20,
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Card(
@@ -33,7 +36,7 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: SizedBox(
-                          width: 400,
+                          width: 2 * width / 3,
                           child: Text(widget.title,
                             style: TextStyle(
                                 fontSize: 16,
@@ -74,7 +77,7 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
                       child: Align(
                         alignment: Alignment.center,
                         child: SizedBox(
-                          width: double.infinity,
+                          width: (85/100) * width,
                           child: Text("blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah ",
                             style: TextStyle(
                                 fontSize: 16,
@@ -102,7 +105,6 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
                         )
                       ),
                     ),
-                    
                   ]
                 )
               ],
