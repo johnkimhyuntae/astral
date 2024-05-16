@@ -18,7 +18,6 @@ void main() {
 class AstralApp extends StatelessWidget {
   const AstralApp({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     const foreground = Color.fromRGBO(243, 229, 165, 1.0);
@@ -27,10 +26,13 @@ class AstralApp extends StatelessWidget {
       create: (context) => AstralState(),
       child: MaterialApp(
         title: 'Astral',
+        // theme: ThemeData(
+        //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        //   useMaterial3: true,
+        // ),
         darkTheme: ThemeData(
           useMaterial3: true,
           colorScheme: const ColorScheme(
-            // TODO: Change each color to semantically correct thing
               brightness: Brightness.dark,
               primary: Colors.black,
               onPrimary: foreground,
@@ -44,12 +46,13 @@ class AstralApp extends StatelessWidget {
               onSurface: Colors.black),
         ),
         themeMode: ThemeMode.dark,
-        home: const HomePage(),
+        home: const MyHomePage(title: 'Astral'),
         debugShowCheckedModeBanner: false,
       ),
     );
   }
 }
+
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -86,63 +89,30 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      // body: Stack(
-      //   children: [
-      //     PageView(
-      //       controller: _pageViewController,
-      //       onPageChanged: _handlePageViewChanged,
-      //       children: [
-      //         Scaffold(// page1
-      //         ),
-      //         Scaffold( //page 2
-      //         ),
-      //         Scaffold( //page3
-      //         ),
-      //         Scaffold( //page4
-      //         ),
-      //         Scaffold( //page5
-      //         ),
-      //         Scaffold( //page6
-      //         ),
-      //         Scaffold( //page7
-      //         ),
-      //       ],
-      //     ),
-      // body: Stack(
-      //   children: [
-      //     PageView.builder(
-      //       controller: _pageViewController,
-      //       onPageChanged: _handlePageViewChanged,
-      //       itemCount: 7, //number of pages
-      //       itemBuilder: (context, index) {
-      //         return DayPage(); //dynamic page creation
-      //       },
-      //     ),
-
-    body: Container( // Wrap your Stack with a Container for background color
-      color: Theme.of(context).colorScheme.background, // Set the background color
-      child: Stack(
-        children: [
-          PageView.builder(
-            controller: _pageViewController,
-            onPageChanged: _handlePageViewChanged,
-            itemCount: 7, //number of pages
-            itemBuilder: (context, index) {
-            // Create DayPage widgets dynamically
-              return DayPage();
-              },
+      body: Container( // Wrap your Stack with a Container for background color
+        color: Theme.of(context).colorScheme.background, // Set the background color
+        child: Stack(
+          children: [
+            PageView.builder(
+              controller: _pageViewController,
+              onPageChanged: _handlePageViewChanged,
+              itemCount: 7, //number of pages
+              itemBuilder: (context, index) {
+              // Create DayPage widgets dynamically
+                return DayPage();
+                },
             ),
             Align(
-              alignment: Alignment.bottomCenter,
-              child: PageIndicator(
-                tabController: _tabController,
-                currentPageIndex: _currentPageIndex,
-                onUpdateCurrentPageIndex: _updateCurrentPageIndex,
-                isOnDesktopAndWeb: _isOnDesktopAndWeb,
+                alignment: Alignment.bottomCenter,
+                child: PageIndicator(
+                  tabController: _tabController,
+                  currentPageIndex: _currentPageIndex,
+                  onUpdateCurrentPageIndex: _updateCurrentPageIndex,
+                  isOnDesktopAndWeb: _isOnDesktopAndWeb,
+                ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
       ),
     );
   }
