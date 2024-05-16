@@ -98,7 +98,7 @@ class DayPage extends StatelessWidget {
               StaggeredGridTile.count(
                 crossAxisCellCount: 1,
                 mainAxisCellCount: 1,
-                child: WeatherInfoCard("wind-speed"),
+                child: WeatherInfoCard("wind-direction"),
               ),
               StaggeredGridTile.count(
                 crossAxisCellCount: 2,

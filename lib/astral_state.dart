@@ -13,10 +13,12 @@ class AstralState extends ChangeNotifier {
   AstralState()
       : currentDateTime = DateTime.now(),
         statIdTitleMap = {
-          "wind-speed": "WIND SPEED",
+          "wind-speed": "Wind Speed",
+          "wind-direction": "Wind Direction",
         },
         statIdValueMap = {
           "wind-speed": "20 km/h",
+          "wind-direction": "NE",
         }
   ;
 
