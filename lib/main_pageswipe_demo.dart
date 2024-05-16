@@ -18,17 +18,33 @@ void main() {
 class AstralApp extends StatelessWidget {
   const AstralApp({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
+    const foreground = Color.fromRGBO(243, 229, 165, 1.0);
+    const background = Color.fromRGBO(37, 40, 58, 1.0);
     return ChangeNotifierProvider(
       create: (context) => AstralState(),
       child: MaterialApp(
         title: 'Astral',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        darkTheme: ThemeData(
           useMaterial3: true,
+          colorScheme: const ColorScheme(
+            // TODO: Change each color to semantically correct thing
+              brightness: Brightness.dark,
+              primary: Colors.black,
+              onPrimary: foreground,
+              secondary: Colors.black,
+              onSecondary: foreground,
+              error: Colors.black,
+              onError: foreground,
+              background: background,
+              onBackground: Colors.white,
+              surface: foreground,
+              onSurface: Colors.black),
         ),
-        home: const MyHomePage(title: 'Astral'),
+        themeMode: ThemeMode.dark,
+        home: const HomePage(),
         debugShowCheckedModeBanner: false,
       ),
     );
@@ -92,26 +108,41 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       //         ),
       //       ],
       //     ),
-      body: Stack(
+      // body: Stack(
+      //   children: [
+      //     PageView.builder(
+      //       controller: _pageViewController,
+      //       onPageChanged: _handlePageViewChanged,
+      //       itemCount: 7, //number of pages
+      //       itemBuilder: (context, index) {
+      //         return DayPage(); //dynamic page creation
+      //       },
+      //     ),
+
+    body: Container( // Wrap your Stack with a Container for background color
+      color: Theme.of(context).colorScheme.background, // Set the background color
+      child: Stack(
         children: [
           PageView.builder(
             controller: _pageViewController,
             onPageChanged: _handlePageViewChanged,
             itemCount: 7, //number of pages
             itemBuilder: (context, index) {
-              return DayPage(); //dynamic page creation
-            },
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: PageIndicator(
-              tabController: _tabController,
-              currentPageIndex: _currentPageIndex,
-              onUpdateCurrentPageIndex: _updateCurrentPageIndex,
-              isOnDesktopAndWeb: _isOnDesktopAndWeb,
+            // Create DayPage widgets dynamically
+              return DayPage();
+              },
             ),
-          ),
-        ],
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: PageIndicator(
+                tabController: _tabController,
+                currentPageIndex: _currentPageIndex,
+                onUpdateCurrentPageIndex: _updateCurrentPageIndex,
+                isOnDesktopAndWeb: _isOnDesktopAndWeb,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
