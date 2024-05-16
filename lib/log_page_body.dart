@@ -14,10 +14,11 @@ class LogPageBody extends StatelessWidget {
     return ListView(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.only(top:10, left: 20, right: 20),
           child: Column(
             children: <Widget>[
-              LogEntry(title: "A crazy night in Cambridge! I can't believe I saw the northen lights in the UK???!!!", date: DateTime.now(), log: "blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah "),
+              LogEntry(title: "A crazy night in Cambridge! I can't believe I saw the northen lights in the UK???!!!", 
+              date: DateTime.now(), log: "blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah "),
             ],
           ),
         ),

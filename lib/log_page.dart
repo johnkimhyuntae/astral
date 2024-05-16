@@ -1,7 +1,11 @@
+import 'package:astral/add_log_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 
 import 'log_page_body.dart';
+import 'add_log.dart';
 
 const Color topBg = Color.fromRGBO(253, 245, 230, 1.0);
 
@@ -57,7 +61,17 @@ class TopBar extends StatelessWidget {
                 ), 
             ),   
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (_, __, ___) => AddLogPage(
+                      activated: AddLog(date: DateTime.now())),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+              ),
+            );
+              },
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(10),
                 backgroundColor: topBg,
