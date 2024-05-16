@@ -98,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               onPageChanged: _handlePageViewChanged,
               itemCount: 7, //number of pages
               itemBuilder: (context, index) {
-                return DayPage();
+                return DayPage(original: true,);
                 },
             ),
             Align(

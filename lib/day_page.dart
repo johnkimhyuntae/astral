@@ -1,34 +1,34 @@
-import 'package:astral/astral_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import 'package:astral/weather_info_card.dart';
-import 'package:astral/time_weather_info_card.dart';
+import 'astral_state.dart';
+import 'weather_info_card.dart';
+import 'time_weather_info_card.dart';
 
 class DayPage extends StatelessWidget {
   const DayPage({
     super.key,
+    required this.original,
   });
+
+  final bool original;
 
   String dateString(BuildContext context) {
     var appState = context.watch<AstralState>();
     return DateFormat("EEEE, d MMMM y").format(appState.currentDateTime);
   }
-
   
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<AstralState>();
-    ScrollController? c;
-    if (appState.controller == null) {
-      appState.controller = ScrollController();
+    ScrollController c;
+    if (original) {
       c = appState.controller;
     }
     else {
-      double sPos = appState.controller!.offset;
+      double sPos = appState.controller.offset;
       c = ScrollController(initialScrollOffset: sPos);
     }
     return ListView(

@@ -1,8 +1,6 @@
-import 'package:astral/weather_info_card.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
+import 'weather_info_card.dart';
 import 'day_page.dart';
 import 'home_page.dart';
 
@@ -23,7 +21,7 @@ class WeatherInfoExpandedPage extends StatelessWidget {
             const Column(
               children: [
                 TopBar(),
-                Flexible(child: DayPage()),
+                Flexible(child: DayPage(original: false,)),
               ],
             ),
             InkWell(

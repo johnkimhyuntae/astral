@@ -1,11 +1,9 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class AstralState extends ChangeNotifier {
-  ScrollController? controller;
+  ScrollController controller = ScrollController();
   DateTime currentDateTime;
   Map<String, String> statIdTitleMap;
   Map<String, String> statIdValueMap;

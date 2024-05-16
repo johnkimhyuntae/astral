@@ -1,8 +1,7 @@
-import 'package:astral/astral_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
+import 'astral_state.dart';
 import 'day_page.dart';
 import 'log_page.dart';
 
@@ -18,7 +17,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             TopBar(),
-            Flexible(child: DayPage()),
+            Flexible(child: DayPage(original: true,)),
           ],
         ),
       ),
