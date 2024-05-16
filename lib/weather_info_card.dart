@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-import 'astral_state.dart';
+import 'package:astral/time_weather_info_card.dart';
+import 'package:astral/astral_state.dart';
 
 class WeatherInfoCard extends StatelessWidget {
   final String statId;
@@ -93,6 +94,7 @@ class WeatherInfoCardExpanded extends StatelessWidget {
                         ),
                     ),
                     const SizedBox(height: 30),
+                    const TimeWeatherInfoCard(),
                     Center(
                       child: Text(
                         value,

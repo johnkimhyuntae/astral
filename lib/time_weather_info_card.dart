@@ -11,9 +11,10 @@ class TimeWeatherInfoCard extends StatefulWidget {
 class _TimeWeatherInfoCardState extends State<TimeWeatherInfoCard> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox(
-        child: Card(
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.2,
+      child: Card(
+          color: ColorScheme.dark().background, // TODO: Make this a nicer color
           child: ListView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
@@ -22,7 +23,6 @@ class _TimeWeatherInfoCardState extends State<TimeWeatherInfoCard> {
                 TimeCard(time: DateTime.now().add(Duration(hours: i))),
             ],
           ),
-        ),
       ),
     );
   }

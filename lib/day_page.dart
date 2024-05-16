@@ -5,8 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import 'weather_info_card.dart';
-import 'time_weather_info_card.dart';
+import 'package:astral/weather_info_card.dart';
+import 'package:astral/time_weather_info_card.dart';
 
 class DayPage extends StatelessWidget {
   const DayPage({
