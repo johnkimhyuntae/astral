@@ -99,7 +99,18 @@ class PageIndicator extends StatelessWidget {
     tabController.index = currentPageIndex;
     // print(tabController.index);
     return Container(
-      color: Colors.white,
+      decoration: const BoxDecoration(
+        color: Color.fromRGBO(30, 32, 47, 0.8), //slightly darker navy for bar
+        // borderRadius: BorderRadius.circular(20.0), //rounded corners on bar
+        boxShadow: [
+          BoxShadow(
+            color: Color.fromRGBO(37, 40, 58, 0.6), //background colour shadow
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 3), //shadow position
+          ),
+        ],
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
