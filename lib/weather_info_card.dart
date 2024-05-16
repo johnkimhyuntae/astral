@@ -148,7 +148,7 @@ class WeatherInfoCardExpanded extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'About Wind Speed and Gusts',
+                        'About $title',
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
                           fontWeight: FontWeight.bold,
