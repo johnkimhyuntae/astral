@@ -16,7 +16,7 @@ void main() {
 }
 
 class AstralApp extends StatelessWidget {
-  const AstralApp({Key? key}) : super(key: key);
+  const AstralApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -85,12 +85,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Container( // Wrap your Stack with a Container for background color
-        color: Theme.of(context).colorScheme.background, // Set the background color
+      // appBar: AppBar(
+      //   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      //   title: Text(widget.title),
+      // ),
+      body: Container(
+        color: Theme.of(context).colorScheme.background,
         child: Stack(
           children: [
             PageView.builder(
@@ -98,19 +98,24 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               onPageChanged: _handlePageViewChanged,
               itemCount: 7, //number of pages
               itemBuilder: (context, index) {
-              // Create DayPage widgets dynamically
                 return DayPage();
                 },
             ),
             Align(
-                alignment: Alignment.bottomCenter,
-                child: PageIndicator(
-                  tabController: _tabController,
-                  currentPageIndex: _currentPageIndex,
-                  onUpdateCurrentPageIndex: _updateCurrentPageIndex,
-                  isOnDesktopAndWeb: _isOnDesktopAndWeb,
-                ),
+              alignment: Alignment.bottomCenter,
+              child: PageIndicator(
+                tabController: _tabController,
+                currentPageIndex: _currentPageIndex,
+                onUpdateCurrentPageIndex: _updateCurrentPageIndex,
+                isOnDesktopAndWeb: _isOnDesktopAndWeb,
               ),
+            ),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: TopBar(),
+            ),
             ],
           ),
       ),
@@ -122,7 +127,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       _currentPageIndex = currentPageIndex;
     });
   }
-
   void _updateCurrentPageIndex(int index) {
     _tabController.index = index;
     _pageViewController.animateToPage(
@@ -131,7 +135,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       curve: Curves.easeInOut,
     );
   }
-
   bool get _isOnDesktopAndWeb {
     return false;
   }
