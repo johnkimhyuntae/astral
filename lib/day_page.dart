@@ -11,13 +11,15 @@ class DayPage extends StatelessWidget {
   const DayPage({
     super.key,
     required this.original,
+    required this.dayIndex,
   });
 
   final bool original;
+  final int dayIndex;
 
   String dateString(BuildContext context) {
     var appState = context.watch<AstralState>();
-    return DateFormat("EEEE, d MMMM y").format(appState.currentDateTime);
+    return DateFormat("EEEE, d MMMM y").format(appState.latestUpdatedTime.add(Duration(days: dayIndex)));
   }
   
   @override

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'astral_state.dart';
-import 'day_page.dart';
+import 'page_swiper.dart';
 import 'log_page.dart';
 
 const Color topBg = Color.fromRGBO(253, 245, 230, 1.0);
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class MainPage extends StatelessWidget {
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,12 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             TopBar(),
-            Flexible(child: DayPage(original: true,)),
+            Flexible(
+              child: PageSwiper(
+                original: true,
+                initialPageIndex: 0,
+              ),
+            ),
           ],
         ),
       ),
@@ -53,7 +58,8 @@ class TopBar extends StatelessWidget {
             const LocationField(),
             ElevatedButton(
               onPressed: () {
-                Provider.of<AstralState>(context, listen: false).updateWeather();
+                Provider.of<AstralState>(context, listen: false)
+                    .updateWeather();
               },
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(10),

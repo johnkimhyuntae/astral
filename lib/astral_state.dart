@@ -6,13 +6,14 @@ import 'package:flutter/material.dart';
 
 class AstralState extends ChangeNotifier {
   ScrollController controller = ScrollController();
-  DateTime currentDateTime;
+  DateTime latestUpdatedTime;
   Map<String, String> statIdTitleMap;
   Map<String, String> statIdValueMap;
   List<LogData> logs;
+  int currentPageIndex = 0;
 
   AstralState()
-      : currentDateTime = DateTime.now(),
+      : latestUpdatedTime = DateTime.now(),
         logs = [],
         statIdTitleMap = {
           "wind-speed": "Wind Speed",
@@ -24,8 +25,13 @@ class AstralState extends ChangeNotifier {
         }
   ;
 
+  void updatePageIndex(int page) {
+    currentPageIndex = page;
+    notifyListeners();
+  }
+
   void updateDateTime() {
-    currentDateTime = DateTime.now();
+    latestUpdatedTime = DateTime.now();
     notifyListeners();
   }
 

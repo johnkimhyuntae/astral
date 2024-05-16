@@ -1,27 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'weather_info_card.dart';
-import 'day_page.dart';
-import 'home_page.dart';
+import 'astral_state.dart';
+import 'main_page.dart';
+import 'page_swiper.dart';
 
 const Color topBg = Color.fromRGBO(253, 245, 230, 1.0);
 
 class WeatherInfoExpandedPage extends StatelessWidget {
-  const WeatherInfoExpandedPage(
-      {super.key, required this.activated});
+  const WeatherInfoExpandedPage({super.key, required this.activated});
 
   final Widget activated;
 
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<AstralState>();
     return Scaffold(
       body: SafeArea(
         child: Stack(
           children: [
-            const Column(
+            Column(
               children: [
-                TopBar(),
-                Flexible(child: DayPage(original: false,)),
+                const TopBar(),
+                Flexible(
+                  child: PageSwiper(
+                    original: false,
+                    initialPageIndex: appState.currentPageIndex,
+                  ),
+                ),
               ],
             ),
             InkWell(
@@ -33,8 +39,8 @@ class WeatherInfoExpandedPage extends StatelessWidget {
               ),
             ),
             Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: activated,
+              padding: const EdgeInsets.all(30.0),
+              child: activated,
             ),
           ],
         ),
