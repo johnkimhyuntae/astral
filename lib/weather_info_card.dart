@@ -14,47 +14,49 @@ class WeatherInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<AstralState>();
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          PageRouteBuilder(
-            pageBuilder: (_, __, ___) {
-              return WeatherInfoExpandedPage(
-              activated: WeatherInfoCardExpanded(
-                title: appState.statIdTitleMap[statId]!,
-                value: appState.statIdValueMap[statId]!,
+    return Material(
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (_, __, ___) {
+                return WeatherInfoExpandedPage(
+                activated: WeatherInfoCardExpanded(
+                  title: appState.statIdTitleMap[statId]!,
+                  value: appState.statIdValueMap[statId]!,
+                  ),
+                );
+              },
+              transitionDuration: Duration.zero,
+              reverseTransitionDuration: Duration.zero,
+            ),
+          );
+        },
+        child: Card(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0, top: 8.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    appState.statIdTitleMap[statId]!.toUpperCase(),
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.primary),
+                  ),
                 ),
-              );
-            },
-            transitionDuration: Duration.zero,
-            reverseTransitionDuration: Duration.zero,
+              ),
+              const SizedBox(height: 30),
+              Text(
+                appState.statIdValueMap[statId]!,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 40,
+                ),
+              ),
+            ],
           ),
-        );
-      },
-      child: Card(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0, top: 8.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  appState.statIdTitleMap[statId]!.toUpperCase(),
-                  style:
-                      TextStyle(color: Theme.of(context).colorScheme.primary),
-                ),
-              ),
-            ),
-            const SizedBox(height: 30),
-            Text(
-              appState.statIdValueMap[statId]!,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-                fontSize: 40,
-              ),
-            ),
-          ],
         ),
       ),
     );
