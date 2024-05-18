@@ -88,7 +88,7 @@ class LocationField extends StatelessWidget {
     var appState = context.watch<AstralState>();
     return Expanded(
       child: TextFormField(
-        initialValue: "Cambridge, UK",
+        controller: appState.locationController,
         onFieldSubmitted: appState.updateLocation,
         textInputAction: TextInputAction.search,
         style: const TextStyle(),

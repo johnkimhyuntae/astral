@@ -1,30 +1,35 @@
-import 'dart:math';
-
-import 'package:astral/log_data.dart';
-import 'time_weather_info_card.dart';
-import 'weather_info_card.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:reorderable_staggered_scroll_view/reorderable_staggered_scroll_view.dart';
+
 import 'API_handler.dart';
+import 'log_data.dart';
+import 'time_weather_info_card.dart';
+import 'weather_info_card.dart';
+import 'weather_info_type.dart';
 
 class AstralState extends ChangeNotifier {
-  ScrollController controller = ScrollController();
-  DateTime latestUpdatedTime;
+  DateTime latestUpdatedTime = DateTime.now();
 
   double lat = 52.1951;
   double lon = 0.1313;
 
-  Map<String, String> statIdTitleMap = {
-    "wind-speed": "Wind Speed",
-    "wind-direction": "Wind Direction",
+  Map<WType, String> statIdTitleMap = {
+    WType.windSpeed: "Wind Speed",
+    WType.windDirection: "Wind Direction",
   };
-  Map<String, String> statIdValueMap = {
-    "wind-speed": "20 km/h",
-    "wind-direction": "NE",
+  Map<WType, String> statIdValueMap = {
+    WType.windSpeed: "20 km/h",
+    WType.windDirection: "NE",
   };
+
   List<LogData> logs = [];
+
   int currentPageIndex = 0;
-  AstralState() : latestUpdatedTime = DateTime.now();
+
+  AstralState() {
+    updateWeather();
+  }
 
   void updatePageIndex(int page) {
     currentPageIndex = page;
@@ -37,22 +42,28 @@ class AstralState extends ChangeNotifier {
   }
 
   void updateWeather() {
-    API_caller API_instance = API_caller();
-    Future<Album> futureAlbum = API_instance.callAPI(lat, lon);
+    API_caller apiInstance = API_caller();
+    Future<Album> futureAlbum = apiInstance.callAPI(lat, lon);
     futureAlbum.then((weatherAlbum) {
-      statIdValueMap["time"] = weatherAlbum.time[latestUpdatedTime.hour].toString();
-      statIdValueMap["wind-speed"] = weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
-      statIdValueMap["wind-speed"] = weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
-      statIdValueMap["wind-speed"] = weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
-      statIdValueMap["wind-speed"] = weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
-      statIdValueMap["wind-speed"] = weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
-      statIdValueMap["wind-speed"] = weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
-      statIdValueMap["wind-speed"] = weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
-
+      // TODO: Parse time
+      // latestUpdatedTime = weatherAlbum.time[latestUpdatedTime.hour];
+      statIdValueMap[WType.windSpeed] =
+          weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
+      statIdValueMap[WType.windSpeed] =
+          weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
+      statIdValueMap[WType.windSpeed] =
+          weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
+      statIdValueMap[WType.windSpeed] =
+          weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
+      statIdValueMap[WType.windSpeed] =
+          weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
+      statIdValueMap[WType.windSpeed] =
+          weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
+      statIdValueMap[WType.windSpeed] =
+          weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
 
       notifyListeners();
     });
-
 
     //statIdValueMap["wind-speed"] = "${Random().nextInt(30)}";
     //notifyListeners();
@@ -82,18 +93,22 @@ class AstralState extends ChangeNotifier {
     return;
   }
 
+  ScrollController scrollController = ScrollController();
+  TextEditingController locationController =
+      TextEditingController(text: "Cambridge, UK");
+
   var weatherInfoWidgetsList = [
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("A"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
-      widget: WeatherInfoCard("wind-speed"),
+      widget: WeatherInfoCard(WType.windSpeed),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("B"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
-      widget: WeatherInfoCard("wind-direction"),
+      widget: WeatherInfoCard(WType.windDirection),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("C"),
@@ -105,19 +120,19 @@ class AstralState extends ChangeNotifier {
       key: Key("D"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
-      widget: WeatherInfoCard("wind-speed"),
+      widget: WeatherInfoCard(WType.windSpeed),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("E"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
-      widget: WeatherInfoCard("wind-speed"),
+      widget: WeatherInfoCard(WType.windSpeed),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("F"),
       crossAxisCellCount: 2,
       mainAxisCellCount: 2,
-      widget: WeatherInfoCard("wind-speed"),
+      widget: WeatherInfoCard(WType.windSpeed),
     ),
   ];
 }
