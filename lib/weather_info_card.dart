@@ -1,15 +1,16 @@
-import 'package:astral/weather_info_expanded_page.dart';
+import 'package:astral/weather_info_type.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-import 'package:astral/time_weather_info_card.dart';
-import 'package:astral/astral_state.dart';
+import 'weather_info_expanded_page.dart';
+import 'time_weather_info_card.dart';
+import 'astral_state.dart';
+import 'weather_info_type.dart';
 
 class WeatherInfoCard extends StatelessWidget {
-  final String statId;
+  final WType wType;
 
-  const WeatherInfoCard(this.statId, {super.key});
+  const WeatherInfoCard(this.wType, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +24,8 @@ class WeatherInfoCard extends StatelessWidget {
               pageBuilder: (_, __, ___) {
                 return WeatherInfoExpandedPage(
                 activated: WeatherInfoCardExpanded(
-                  title: appState.statIdTitleMap[statId]!,
-                  value: appState.statIdValueMapHourly[statId]![0][0], //[DAY 0-6][HOUR 0-23]
+                  title: appState.statIdTitleMap[wType]!,
+                  value: appState.statIdValueMap[wType]!,
                   ),
                 );
               },
@@ -41,7 +42,7 @@ class WeatherInfoCard extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    appState.statIdTitleMap[statId]!.toUpperCase(),
+                    appState.statIdTitleMap[wType]!.toUpperCase(),
                     style:
                         TextStyle(color: Theme.of(context).colorScheme.primary),
                   ),
@@ -49,7 +50,7 @@ class WeatherInfoCard extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               Text(
-                appState.statIdValueMapHourly[statId]![0][0], //[DAY 0-6][HOUR 0-23]
+                appState.statIdValueMap[wType]!,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                   fontSize: 40,

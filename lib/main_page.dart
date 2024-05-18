@@ -46,9 +46,13 @@ class TopBar extends StatelessWidget {
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LogPage()),
-                  );
+              context,
+              PageRouteBuilder(
+                pageBuilder: (_, __, ___) => LogPage(),
+                transitionDuration: Duration.zero,
+                reverseTransitionDuration: Duration.zero,
+              ),
+            );
                 },
                 style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(10),
@@ -88,7 +92,7 @@ class LocationField extends StatelessWidget {
     var appState = context.watch<AstralState>();
     return Expanded(
       child: TextFormField(
-        initialValue: "Cambridge, UK",
+        controller: appState.locationController,
         onFieldSubmitted: appState.updateLocation,
         textInputAction: TextInputAction.search,
         style: const TextStyle(),

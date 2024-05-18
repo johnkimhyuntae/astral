@@ -43,9 +43,10 @@ class DayPage extends StatelessWidget {
       ],
     );
   }
-  
-  Widget moonAndTemperature(AstralState appState){
-    DateTime latestUpdatedTime = appState.latestUpdatedTime.add(Duration(days: dayIndex));
+
+  Widget moonAndTemperature(AstralState appState) {
+    DateTime latestUpdatedTime =
+        appState.latestUpdatedTime.add(Duration(days: dayIndex));
     // TODO: Get temp from AstralState
     latestUpdatedTime = latestUpdatedTime;
     int temp = 14;
@@ -101,9 +102,9 @@ class DayPage extends StatelessWidget {
     var appState = context.watch<AstralState>();
     ScrollController c;
     if (original) {
-      c = appState.controller;
+      c = appState.scrollController;
     } else {
-      double sPos = appState.controller.offset;
+      double sPos = appState.scrollController.offset;
       c = ScrollController(initialScrollOffset: sPos);
     }
     return c;

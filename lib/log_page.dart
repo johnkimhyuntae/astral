@@ -1,4 +1,5 @@
 import 'package:astral/add_log_page.dart';
+import 'package:astral/main_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -44,7 +45,14 @@ class TopBar extends StatelessWidget {
           children: [
             ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (_, __, ___) => MainPage(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+              ),
+            );
                 },
                 style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(10),
