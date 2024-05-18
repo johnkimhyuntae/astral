@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'main_page.dart';
 import 'astral_state.dart';
 
@@ -24,8 +23,45 @@ class AstralApp extends StatelessWidget {
       create: (context) => AstralState(),
       child: MaterialApp(
         title: 'Astral',
+        theme: ThemeData(
+          fontFamily: 'Nunito',
+          textTheme: const TextTheme(
+            displayLarge: TextStyle(fontFamily: 'Nunito'),
+            displayMedium: TextStyle(fontFamily: 'Nunito'),
+            displaySmall: TextStyle(fontFamily: 'Nunito'),
+            headlineLarge: TextStyle(fontFamily: 'Nunito'),
+            headlineMedium: TextStyle(fontFamily: 'Nunito'),
+            headlineSmall: TextStyle(fontFamily: 'Nunito'),
+            titleLarge: TextStyle(fontFamily: 'Nunito'),
+            titleMedium: TextStyle(fontFamily: 'Nunito'),
+            titleSmall: TextStyle(fontFamily: 'Nunito'),
+            bodyLarge: TextStyle(fontFamily: 'Nunito'),
+            bodyMedium: TextStyle(fontFamily: 'Nunito'),
+            bodySmall: TextStyle(fontFamily: 'Nunito'),
+            labelLarge: TextStyle(fontFamily: 'Nunito'),
+            labelMedium: TextStyle(fontFamily: 'Nunito'),
+            labelSmall: TextStyle(fontFamily: 'Nunito'),
+          ),
+        ),
         darkTheme: ThemeData(
           useMaterial3: true,
+          textTheme: const TextTheme(
+            displayLarge: TextStyle(fontFamily: 'Nunito'),
+            displayMedium: TextStyle(fontFamily: 'Nunito'),
+            displaySmall: TextStyle(fontFamily: 'Nunito'),
+            headlineLarge: TextStyle(fontFamily: 'Nunito'),
+            headlineMedium: TextStyle(fontFamily: 'Nunito'),
+            headlineSmall: TextStyle(fontFamily: 'Nunito'),
+            titleLarge: TextStyle(fontFamily: 'Nunito'),
+            titleMedium: TextStyle(fontFamily: 'Nunito'),
+            titleSmall: TextStyle(fontFamily: 'Nunito'),
+            bodyLarge: TextStyle(fontFamily: 'Nunito'),
+            bodyMedium: TextStyle(fontFamily: 'Nunito'),
+            bodySmall: TextStyle(fontFamily: 'Nunito'),
+            labelLarge: TextStyle(fontFamily: 'Nunito'),
+            labelMedium: TextStyle(fontFamily: 'Nunito'),
+            labelSmall: TextStyle(fontFamily: 'Nunito'),
+          ),
           colorScheme: const ColorScheme(
               brightness: Brightness.dark,
               primary: basicallyBlack,

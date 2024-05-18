@@ -14,7 +14,8 @@ class _TimeWeatherInfoCardState extends State<TimeWeatherInfoCard> {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.2,
       child: Card(
-          color: ColorScheme.dark().background, // TODO: Make this a nicer color
+          color: const Color.fromRGBO(82, 85, 102, 1.0).withOpacity(0.4),
+          elevation: 8.0,
           child: ListView(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
