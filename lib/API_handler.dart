@@ -117,11 +117,6 @@ class Album {
   final List<int> precipitation_percentage;
   final List<int> cloud_percentage;
 
-  final List<double> avgtemperatureday;
-  final List<double> windspeed_meanday;
-  final List<double> temperature_minday;
-  final List<double> temperature_maxday;
-
   const Album({
     required this.metadata,
     required this.units,
@@ -134,11 +129,6 @@ class Album {
     required this.winddirection,
     required this.precipitation_percentage,
     required this.cloud_percentage,
-
-    required this.avgtemperatureday,
-    required this.windspeed_meanday,
-    required this.temperature_minday,
-    required this.temperature_maxday,
   });
 
   factory Album.fromJson(Map<String, dynamic> json) {
@@ -155,11 +145,6 @@ class Album {
       winddirection: List<int>.from(json['data_1h']['winddirection']),
       precipitation_percentage: List<int>.from(json['data_1h']['precipitation_probability']),
       cloud_percentage: List<int>.from(json['data_1h']['highclouds']),
-
-      avgtemperatureday: List<double>.from(json['data_day']['temperature_mean']),
-      windspeed_meanday: List<double>.from(json['data_day']['windspeed_mean']),
-      temperature_minday: List<double>.from(json['data_day']['temperature_min']),
-      temperature_maxday: List<double>.from(json['data_day']['temperature_max']),
 
     );
   }

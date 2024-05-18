@@ -18,9 +18,12 @@ class AstralState extends ChangeNotifier {
     "wind-speed": "Wind Speed",
     "wind-direction": "Wind Direction",
   };
-  Map<String, String> statIdValueMap = {
-    "wind-speed": "20 km/h",
-    "wind-direction": "NE",
+  Map<String, List<List<String>>> statIdValueMapHourly = {
+    "wind-speed": [["20 km/h"]],
+    "wind-direction": [["NE"]],
+  };
+  Map<String, List<String>> statIdValueMapDailyAverage = {
+    "wind-speed": ["15 km/h"],
   };
   List<LogData> logs = [];
   int currentPageIndex = 0;
@@ -40,15 +43,35 @@ class AstralState extends ChangeNotifier {
     API_caller API_instance = API_caller();
     Future<Album> futureAlbum = API_instance.callAPI(lat, lon);
     futureAlbum.then((weatherAlbum) {
-      statIdValueMap["time"] = weatherAlbum.time[latestUpdatedTime.hour].toString();
-      statIdValueMap["wind-speed"] = weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
-      statIdValueMap["wind-speed"] = weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
-      statIdValueMap["wind-speed"] = weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
-      statIdValueMap["wind-speed"] = weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
-      statIdValueMap["wind-speed"] = weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
-      statIdValueMap["wind-speed"] = weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
-      statIdValueMap["wind-speed"] = weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
-
+      //time
+      statIdValueMapHourly["time"] = convertTo2DArrayOfStrings(weatherAlbum.time, "");
+      statIdValueMapDailyAverage["time"] = convertToDailyAverages(weatherAlbum.time, "");
+      //wind speed
+      statIdValueMapHourly["wind-speed"] = convertTo2DArrayOfStrings(weatherAlbum.windspeed, "km/h");
+      statIdValueMapDailyAverage["wind-speed"] = convertToDailyAverages(weatherAlbum.windspeed, "km/h");
+      //wind direction
+      List<int> windDirectionsBearings = weatherAlbum.winddirection;
+      List<String> windDirections = [];
+      for (var i = 0; i < windDirectionsBearings.length; i++) {
+        windDirections.add(bearingToCompass(windDirectionsBearings[i]));
+      }
+      statIdValueMapHourly["wind-direction"] = convertTo2DArrayOfStrings(windDirections, "");
+      statIdValueMapDailyAverage["wind-direction"] = convertToDailyAverages(windDirections, "");
+      //temperature
+      statIdValueMapHourly["temperature"] = convertTo2DArrayOfStrings(weatherAlbum.temperature, "°C");
+      statIdValueMapDailyAverage["temperature"] = convertToDailyAverages(weatherAlbum.temperature, "°C");
+      //felt temperature
+      statIdValueMapHourly["felt-temperature"] = convertTo2DArrayOfStrings(weatherAlbum.felttemperature, "°C");
+      statIdValueMapDailyAverage["felt-temperature"] = convertToDailyAverages(weatherAlbum.felttemperature, "°C");
+      //humidity
+      statIdValueMapHourly["humidity"] = convertTo2DArrayOfStrings(weatherAlbum.relativehumidity, "g/kg");
+      statIdValueMapDailyAverage["humidity"] = convertToDailyAverages(weatherAlbum.relativehumidity, "g/kg");
+      //precipitation percentage
+      statIdValueMapHourly["precipitation-percentage"] = convertTo2DArrayOfStrings(weatherAlbum.precipitation_percentage, "%");
+      statIdValueMapDailyAverage["precipitation-percentage"] = convertToDailyAverages(weatherAlbum.precipitation_percentage, "%");
+      //cloud percentage
+      statIdValueMapHourly["cloud-percentage"] = convertTo2DArrayOfStrings(weatherAlbum.cloud_percentage, "%");
+      statIdValueMapDailyAverage["cloud-percentage"] = convertToDailyAverages(weatherAlbum.cloud_percentage, "%");
 
       notifyListeners();
     });
@@ -56,6 +79,31 @@ class AstralState extends ChangeNotifier {
 
     //statIdValueMap["wind-speed"] = "${Random().nextInt(30)}";
     //notifyListeners();
+  }
+
+  String bearingToCompass(int bearing) {
+    List<String> compassDirections = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+    return compassDirections[(bearing + 22) ~/ 45];
+  }
+
+  List<List<String>> convertTo2DArrayOfStrings<T>(List<T> originalData, String units) {
+    List<List<String>> returnValue = [[], [], [], [], [], [], []];
+    for (var i = 0; i < 168; i++) {
+      returnValue[i ~/ 7].add(originalData[i].toString() + " " + units);
+    }
+    return returnValue;
+  }
+
+  List<String> convertToDailyAverages<T>(List<T> originalData, String units) {
+    List<String> dailyAverages = [];
+    for (var i = 0; i < 7; i++) {
+      double total = 0;
+      for (var j = 0; j < 24; j++) {
+        total += originalData as num;
+      }
+      dailyAverages.add((total / 24).toStringAsPrecision(3) + " " + units);
+    }
+    return dailyAverages;
   }
 
   void updateLocation(String newLocation) {
@@ -80,6 +128,10 @@ class AstralState extends ChangeNotifier {
   void removeLog(LogData x) {
     logs.remove(x);
     return;
+  }
+
+  DateTime getLatestTime() {
+    return latestUpdatedTime;
   }
 
   var weatherInfoWidgetsList = [
