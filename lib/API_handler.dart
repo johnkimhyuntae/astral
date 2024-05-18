@@ -36,11 +36,8 @@ import 'package:http/http.dart' as http;
 
 class API_caller {
   var futureAlbum = null;
-  callAPI() {
-    Future<Album> futureAlbum = API_handler.fetchAlbum();
-  }
-  getFutureAlbum() {
-    return (futureAlbum);
+  callAPI(lat, lon) {
+    return API_handler.fetchAlbum(lat, lon);
   }
 }
 
@@ -58,9 +55,27 @@ class API_handler {
   //   }
   // }
 
-  static Future<Album> fetchAlbum() async {
-    print('Starting API call');
-    final response = await http.get(Uri.parse('https://my.meteoblue.com/packages/basic-1h_basic-day?lat=47.558&lon=7.573&asl=279&tz=Europe%2FZurich&name=Basel&format=json&history_days=1&apikey=DEMOKEY&sig=3413036bf33758dd1cc57596bf520ca0'));
+  static Future<List<double>> fetchLatLon(location) async {
+    print('Starting Location API call');
+    final response = await http.get(Uri.parse('https://www.meteoblue.com/en/server/search/query3?query=$location&apikey=A0fdQ5eDnNypHMTZ'));
+
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      LatLon localLatLon = LatLon.getLatLon(jsonDecode(response.body) as Map<String, dynamic>);
+      // converting LatLon object into a list of doubles of size 2
+      List<double> latLonList = [localLatLon.lat, localLatLon.lon];
+      return latLonList;
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
+  }
+
+  static Future<Album> fetchAlbum(lat, lon) async {
+    print('Starting Weather API call');
+    final response = await http.get(Uri.parse('https://my.meteoblue.com/packages/basic-1h_basic-day_clouds-1h?apikey=A0fdQ5eDnNypHMTZ&lat=$lat&lon=$lon&asl=279&format=json'));
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -74,22 +89,78 @@ class API_handler {
   }
 }
 
+class LatLon {
+  final double lat;
+  final double lon;
+
+  const LatLon({
+    required this.lat,
+    required this.lon,
+  });
+
+  factory LatLon.getLatLon(Map<String, dynamic> json) {
+    print(json);
+    return LatLon(lat: json['lat'] as double, lon: json['lon'] as double);
+  }
+}
+
 class Album {
   final Metadata metadata;
   final Units units;
+
   final List<double> windspeed;
+  final List<String> time;
+  final List<double> temperature;
+  final List<double> felttemperature;
+  final List<int> relativehumidity;
+  final List<int> winddirection;
+  final List<int> precipitation_percentage;
+  final List<int> cloud_percentage;
+
+  final List<double> avgtemperatureday;
+  final List<double> windspeed_meanday;
+  final List<double> temperature_minday;
+  final List<double> temperature_maxday;
 
   const Album({
     required this.metadata,
     required this.units,
+
     required this.windspeed,
+    required this.time,
+    required this.temperature,
+    required this.felttemperature,
+    required this.relativehumidity,
+    required this.winddirection,
+    required this.precipitation_percentage,
+    required this.cloud_percentage,
+
+    required this.avgtemperatureday,
+    required this.windspeed_meanday,
+    required this.temperature_minday,
+    required this.temperature_maxday,
   });
 
   factory Album.fromJson(Map<String, dynamic> json) {
+    print(json);
     return Album(
       metadata: Metadata.fromJson(json['metadata']),
       units: Units.fromJson(json['units']),
-      windspeed: List<double>.from(json['windspeed']),
+
+      windspeed: List<double>.from(json['data_1h']['windspeed']),
+      time: List<String>.from(json['data_1h']['time']),
+      temperature: List<double>.from(json['data_1h']['temperature']),
+      felttemperature: List<double>.from(json['data_1h']['felttemperature']),
+      relativehumidity: List<int>.from(json['data_1h']['relativehumidity']),
+      winddirection: List<int>.from(json['data_1h']['winddirection']),
+      precipitation_percentage: List<int>.from(json['data_1h']['precipitation_probability']),
+      cloud_percentage: List<int>.from(json['data_1h']['highclouds']),
+
+      avgtemperatureday: List<double>.from(json['data_day']['temperature_mean']),
+      windspeed_meanday: List<double>.from(json['data_day']['windspeed_mean']),
+      temperature_minday: List<double>.from(json['data_day']['temperature_min']),
+      temperature_maxday: List<double>.from(json['data_day']['temperature_max']),
+
     );
   }
 }
@@ -102,7 +173,7 @@ class Metadata {
   final double latitude;
   final String modelrunUtc;
   final double longitude;
-  final int utcTimeoffset;
+  final double utcTimeoffset;
   final double generationTimeMs;
 
   Metadata({
