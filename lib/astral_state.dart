@@ -49,6 +49,7 @@ class AstralState extends ChangeNotifier {
       statIdValueMap["wind-speed"] = weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
       statIdValueMap["wind-speed"] = weatherAlbum.windspeed[latestUpdatedTime.hour].toString();
 
+
       notifyListeners();
     });
 
