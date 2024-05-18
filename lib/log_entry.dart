@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:astral/log_data.dart';
 import 'package:astral/log_entry_expanded.dart';
 import 'package:astral/log_entry_expanded_page.dart';
@@ -116,7 +116,7 @@ class _LogEntryState extends State<LogEntry> {
                         child: SizedBox(
                           height: 50,
                           width: 100,
-                          child: (widget.image != null) ? Image.file(widget.image!) : const Text("No Image")
+                          child: (widget.image != null) ? ((kIsWeb) ? Image.network(widget.image!.path) : Image.file(widget.image!)) : const Text("No Image")
                         ),
                       ),
                     )

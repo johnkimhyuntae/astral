@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -68,7 +68,7 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
                         child: SizedBox(
                           height: 100,
                           width: 150,
-                          child: (widget.image != null) ? Image.file(widget.image!) : const Text("No Image")
+                          child: (widget.image != null) ? ((kIsWeb) ? Image.network(widget.image!.path) : Image.file(widget.image!)) : const Text("No Image")
                         ),
                       ),
                     ),

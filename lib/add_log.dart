@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:astral/log_entry_expanded.dart';
 import 'package:astral/log_entry_expanded_page.dart';
 import 'package:flutter/material.dart';
@@ -87,7 +87,7 @@ class _AddLogState extends State<AddLog> {
                           SizedBox(
                           height: 50,
                           width: 100,
-                          child: Image.file(_selectedImage!)
+                          child: (kIsWeb) ? Image.network(_selectedImage!.path) : Image.file(_selectedImage!)
                         ) : MaterialButton(
                           color: const Color.fromRGBO(37, 40, 58, 1.0),
                           child: const Text(
@@ -146,25 +146,25 @@ class _AddLogState extends State<AddLog> {
                       child: Align(
                         alignment: Alignment.bottomRight,
                         child: IconButton(
-                        iconSize: 35,
-                        color: Colors.green,
-                        icon: const Icon(IconData(0xf636, fontFamily: 'MaterialIcons')),
-                        onPressed: () {
-                          print(userTitle);
-                          print(userLog);
-                          LogData x = LogData(id: uuid.v4(), title: userTitle, date: date, log: userLog, image: _selectedImage);
-                          appState.logs.insert(0, x);
-                          Navigator.pop(context);
-                          Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder: (_, __, ___) => LogPage(),
-                              transitionDuration: Duration.zero,
-                              reverseTransitionDuration: Duration.zero,
-                            ),
-                          );
-                        },
+                          iconSize: 35,
+                          color: Colors.green,
+                          icon: const Icon(IconData(0xf636, fontFamily: 'MaterialIcons')),
+                          onPressed: () {
+                            print(userTitle);
+                            print(userLog);
+                            LogData x = LogData(id: uuid.v4(), title: userTitle, date: date, log: userLog, image: _selectedImage);
+                            appState.logs.insert(0, x);
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (_, __, ___) => LogPage(),
+                                transitionDuration: Duration.zero,
+                                reverseTransitionDuration: Duration.zero,
+                              ),
+                            );
+                          },
                         )
                       ),
                     ),
