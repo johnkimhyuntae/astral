@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:astral/log_data.dart';
 import 'package:astral/log_entry_expanded.dart';
 import 'package:astral/log_entry_expanded_page.dart';
@@ -16,7 +18,8 @@ class LogEntry extends StatefulWidget {
   final String title;
   final DateTime date;
   final String log;
-  const LogEntry({super.key, required this.id, required this.title, required this.date, required this.log});
+  final File? image;
+  const LogEntry({super.key, required this.id, required this.title, required this.date, required this.log, required this.image});
   
   @override
   State<LogEntry> createState() => _LogEntryState();
@@ -37,7 +40,7 @@ class _LogEntryState extends State<LogEntry> {
               context,
               PageRouteBuilder(
                 pageBuilder: (_, __, ___) => LogEntryExpandedPage(
-                  activated: LogEntryExpanded(title: widget.title, date: widget.date, log: widget.log,)),
+                  activated: LogEntryExpanded(title: widget.title, date: widget.date, log: widget.log, image: widget.image)),
                 transitionDuration: Duration.zero,
                 reverseTransitionDuration: Duration.zero,
               ),
@@ -112,11 +115,7 @@ class _LogEntryState extends State<LogEntry> {
                         child: SizedBox(
                           height: 50,
                           width: 100,
-                          child: Image.asset(
-                            "assets/images/moon.png",
-                            color: Colors.black.withOpacity(0.75),
-                            colorBlendMode: BlendMode.dstIn,
-                          ),
+                          child: (widget.image != null) ? Image.network(widget.image!.path) : const Text("No Image")
                         ),
                       ),
                     )

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -8,7 +10,8 @@ class LogEntryExpanded extends StatefulWidget {
   final String title;
   final DateTime date;
   final String log;
-  const LogEntryExpanded({super.key, required this.title, required this.date, required this.log});
+  final File? image;
+  const LogEntryExpanded({super.key, required this.title, required this.date, required this.log, required this.image});
   
   @override
   State<LogEntryExpanded> createState() => _LogEntryExpandedState();
@@ -65,11 +68,7 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
                         child: SizedBox(
                           height: 100,
                           width: 150,
-                          child: Image.asset(
-                            "assets/images/moon.png",
-                            color: Colors.black.withOpacity(0.75),
-                            colorBlendMode: BlendMode.dstIn,
-                          ),
+                          child: (widget.image != null) ? Image.network(widget.image!.path) : const Text("No Image")
                         ),
                       ),
                     ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:astral/log_entry_expanded.dart';
 import 'package:astral/log_entry_expanded_page.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,7 @@ import 'astral_state.dart';
 import 'log_data.dart';
 import 'package:uuid/uuid.dart';
 import 'log_page.dart';
+import 'package:image_picker/image_picker.dart';
 
 const Color topBg = Color.fromRGBO(253, 245, 230, 1.0);
 
@@ -20,13 +23,16 @@ class AddLog extends StatefulWidget {
 
 class _AddLogState extends State<AddLog> {
 
+  File? _selectedImage;
+  bool imageExists = false;
+  var userTitle = '';
+  var userLog = '';
+
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<AstralState>();
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    var userTitle = '';
-    var userLog = '';
     var uuid = Uuid();
     DateTime date = DateTime.now();
 
@@ -77,9 +83,24 @@ class _AddLogState extends State<AddLog> {
                       padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
                       child: Align(
                         alignment: Alignment.topCenter,
-                        child: ConstrainedBox(
-                              constraints: const BoxConstraints(maxHeight: 140),
-                              child: Image.asset("assets/images/moon.png",),
+                        child: (imageExists) ? 
+                          SizedBox(
+                          height: 50,
+                          width: 100,
+                          child: Image.network(_selectedImage!.path)
+                        ) : MaterialButton(
+                          color: const Color.fromRGBO(37, 40, 58, 1.0),
+                          child: const Text(
+                            "Add Image",
+                            style: TextStyle(
+                              color: topBg,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          onPressed: () {
+                            _pickImageFromGallery();
+                          },
                         )
                       ),
                     ),
@@ -92,7 +113,6 @@ class _AddLogState extends State<AddLog> {
                           child: TextField(
                             maxLines: 9,
                             onChanged: (uInput) {
-                              // This function is called whenever the user types in the text field
                                 userLog = uInput;
                             },
                             decoration: InputDecoration(
@@ -138,7 +158,9 @@ class _AddLogState extends State<AddLog> {
                         color: Colors.green,
                         icon: const Icon(IconData(0xf636, fontFamily: 'MaterialIcons')),
                         onPressed: () {
-                          LogData x = LogData(id: uuid.v4(), title: userTitle, date: date, log: userLog, pathToImage: "assets/images/moon.png");
+                          print(userTitle);
+                          print(userLog);
+                          LogData x = LogData(id: uuid.v4(), title: userTitle, date: date, log: userLog, image: _selectedImage);
                           appState.logs.insert(0, x);
                           Navigator.push(
                             context,
@@ -161,4 +183,13 @@ class _AddLogState extends State<AddLog> {
       ),
     );
   }
+  Future _pickImageFromGallery() async {
+    final returnedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      _selectedImage = File(returnedImage!.path);
+    }); 
+    if (_selectedImage != null) {
+      imageExists = true;
+    }
+  } 
 }
