@@ -1,17 +1,22 @@
+import 'package:astral/log_data.dart';
 import 'package:astral/log_entry_expanded.dart';
 import 'package:astral/log_entry_expanded_page.dart';
+import 'package:astral/log_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'astral_state.dart';
 
 const Color topBg = Color.fromRGBO(253, 245, 230, 1.0);
 
 
 class LogEntry extends StatefulWidget {
+  final String id;
   final String title;
   final DateTime date;
   final String log;
-  const LogEntry({super.key, required this.title, required this.date, required this.log});
+  const LogEntry({super.key, required this.id, required this.title, required this.date, required this.log});
   
   @override
   State<LogEntry> createState() => _LogEntryState();
@@ -21,6 +26,7 @@ class _LogEntryState extends State<LogEntry> {
 
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<AstralState>();
     return Center(
       child: SizedBox(
         height: 160,
@@ -81,7 +87,21 @@ class _LogEntryState extends State<LogEntry> {
                         iconSize: 20,
                         color: Colors.red,
                         icon: const Icon(IconData(0xefa9, fontFamily: 'MaterialIcons')),
-                        onPressed: () {},
+                        onPressed: () {
+                          for (LogData entry in appState.logs) {
+                            if (entry.id == widget.id) {
+                              appState.logs.remove(entry);
+                            }
+                          }; 
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (_, __, ___) => LogPage(),
+                              transitionDuration: Duration.zero,
+                              reverseTransitionDuration: Duration.zero,
+                            ),
+                          );
+                        },
                         )
                       ),
                     ),

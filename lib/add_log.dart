@@ -25,8 +25,8 @@ class _AddLogState extends State<AddLog> {
     var appState = context.watch<AstralState>();
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    String userTitle = '';
-    String userLog = '';
+    var userTitle = '';
+    var userLog = '';
     var uuid = Uuid();
     DateTime date = DateTime.now();
 
@@ -49,21 +49,21 @@ class _AddLogState extends State<AddLog> {
                           width: 2 * width / 3,
                           child: TextField(
                             maxLines: 3,
-                            decoration: const InputDecoration(
-                              labelText: 'Title',
-                              border: OutlineInputBorder(),
+                            decoration: InputDecoration(
+                              hintText: 'Title',
+                              hintStyle: TextStyle(color: Colors.black.withOpacity(0.75)),
+                              border: const OutlineInputBorder(),
                               ),
                             onChanged: (value) {
                               // This function is called whenever the user types in the text field
-                              setState(() {userTitle = value;});
-                              print(userTitle);
+                              userTitle = value;
                             },
                           )
                         )
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 12.0, bottom: 16.0),
+                      padding: const EdgeInsets.only(top: 20, left: 16.0, bottom: 16.0),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(DateFormat("EEEE, d MMMM y").format(date),
@@ -74,36 +74,31 @@ class _AddLogState extends State<AddLog> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 16.0, bottom: 10.0),
+                      padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
                       child: Align(
                         alignment: Alignment.topCenter,
-                        child: SizedBox(
-                          height: 100,
-                          width: 150,
-                          child: Image.asset(
-                            "assets/images/moon.png",
-                            color: Colors.black.withOpacity(0.75),
-                            colorBlendMode: BlendMode.dstIn,
-                          ),
-                        ),
+                        child: ConstrainedBox(
+                              constraints: const BoxConstraints(maxHeight: 140),
+                              child: Image.asset("assets/images/moon.png",),
+                        )
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 12.0, top: 16.0),
+                      padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 16.0, bottom: 12.0),
                       child: Align(
-                        alignment: Alignment.center,
+                        alignment: Alignment.bottomCenter,
                         child: SizedBox(
                           width: (85/100) * width,
                           child: TextField(
-                            maxLines: 10,
+                            maxLines: 9,
                             onChanged: (uInput) {
                               // This function is called whenever the user types in the text field
-                              setState(() {
                                 userLog = uInput;
-                              });
                             },
-                            decoration: const InputDecoration(
-                              labelText: 'Description',
+                            decoration: InputDecoration(
+                              hintText: 'Description',
+                              hintStyle: TextStyle(color: Colors.black.withOpacity(0.75)),
+                              border: const OutlineInputBorder(),
                             ),
                           )
                         )
@@ -140,14 +135,19 @@ class _AddLogState extends State<AddLog> {
                         alignment: Alignment.bottomRight,
                         child: IconButton(
                         iconSize: 35,
-                        color: Colors.red,
-                        icon: const Icon(Icons.add),
+                        color: Colors.green,
+                        icon: const Icon(IconData(0xf636, fontFamily: 'MaterialIcons')),
                         onPressed: () {
-                          print(userTitle);
                           LogData x = LogData(id: uuid.v4(), title: userTitle, date: date, log: userLog, pathToImage: "assets/images/moon.png");
-                          appState.logs.add(x);
-                          print(appState.logs);
-
+                          appState.logs.insert(0, x);
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (_, __, ___) => LogPage(),
+                              transitionDuration: Duration.zero,
+                              reverseTransitionDuration: Duration.zero,
+                            ),
+                          );
                         },
                         )
                       ),
