@@ -68,7 +68,7 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
                         child: SizedBox(
                           height: 100,
                           width: 150,
-                          child: (widget.image != null) ? Image.network(widget.image!.path) : const Text("No Image")
+                          child: (widget.image != null) ? Image.file(widget.image!) : const Text("No Image")
                         ),
                       ),
                     ),

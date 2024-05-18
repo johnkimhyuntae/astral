@@ -96,6 +96,7 @@ class _LogEntryState extends State<LogEntry> {
                               appState.logs.remove(entry);
                             }
                           }; 
+                          Navigator.pop(context);
                           Navigator.push(
                             context,
                             PageRouteBuilder(
@@ -115,7 +116,7 @@ class _LogEntryState extends State<LogEntry> {
                         child: SizedBox(
                           height: 50,
                           width: 100,
-                          child: (widget.image != null) ? Image.network(widget.image!.path) : const Text("No Image")
+                          child: (widget.image != null) ? Image.file(widget.image!) : const Text("No Image")
                         ),
                       ),
                     )

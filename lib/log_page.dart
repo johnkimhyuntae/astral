@@ -45,14 +45,7 @@ class TopBar extends StatelessWidget {
           children: [
             ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => MainPage(),
-                    transitionDuration: Duration.zero,
-                    reverseTransitionDuration: Duration.zero,
-              ),
-            );
+                  Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(10),

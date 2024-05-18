@@ -87,7 +87,7 @@ class _AddLogState extends State<AddLog> {
                           SizedBox(
                           height: 50,
                           width: 100,
-                          child: Image.network(_selectedImage!.path)
+                          child: Image.file(_selectedImage!)
                         ) : MaterialButton(
                           color: const Color.fromRGBO(37, 40, 58, 1.0),
                           child: const Text(
@@ -137,15 +137,7 @@ class _AddLogState extends State<AddLog> {
                         color: Colors.red,
                         icon: const Icon(Icons.close),
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder: (_, __, ___) => LogPage(),
-                              transitionDuration: Duration.zero,
-                              reverseTransitionDuration: Duration.zero,
-                            ),
-                          );
-                        },
+                          Navigator.pop(context);},
                         )
                       ),
                     ),
@@ -162,6 +154,8 @@ class _AddLogState extends State<AddLog> {
                           print(userLog);
                           LogData x = LogData(id: uuid.v4(), title: userTitle, date: date, log: userLog, image: _selectedImage);
                           appState.logs.insert(0, x);
+                          Navigator.pop(context);
+                          Navigator.pop(context);
                           Navigator.push(
                             context,
                             PageRouteBuilder(
