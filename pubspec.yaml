@@ -66,6 +66,22 @@ flutter:
 
   assets:
     - assets/images/moon.png
+    - assets/weatherIcons/icons8-clouds-50.png
+    - assets/weatherIcons/icons8-lightning-bolt-50.png
+    - assets/weatherIcons/icons8-heavy-rain-50.png
+    - assets/weatherIcons/icons8-rain-50.png
+    - assets/weatherIcons/icons8-rain-cloud-50.png
+    - assets/weatherIcons/icons8-rain-cloud-50-2.png
+    - assets/weatherIcons/icons8-rainy-weather-50.png
+    - assets/weatherIcons/icons8-sleet-50.png
+    - assets/weatherIcons/icons8-snow-50.png
+    - assets/weatherIcons/icons8-sun-50.png
+    - assets/weatherIcons/icons8-sun-50-2.png
+    - assets/weatherIcons/icons8-sunrise-50.png
+    - assets/weatherIcons/icons8-sunset-50.png
+    - assets/weatherIcons/icons8-wet-50.png
+    - assets/weatherIcons/icons8-wind-50.png
+
 
   fonts:
     - family: Nunito
