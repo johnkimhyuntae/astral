@@ -59,8 +59,9 @@ class _LogEntryState extends State<LogEntry> {
                           height: 100,
                           width: 200,
                           child: Text(widget.title,
+                            overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 16,
                                 color: Theme.of(context).colorScheme.primary
                             ),
                           ),
@@ -115,8 +116,8 @@ class _LogEntryState extends State<LogEntry> {
                         alignment: Alignment.bottomRight,
                         child: SizedBox(
                           height: 50,
-                          width: 100,
-                          child: (widget.image != null) ? ((kIsWeb) ? Image.network(widget.image!.path) : Image.file(widget.image!)) : const Text("No Image")
+                          width: 150,
+                          child: (widget.image != null) ? ((kIsWeb) ? Image.network(widget.image!.path) : Image.file(widget.image!)) : const Text(" ")
                         ),
                       ),
                     )

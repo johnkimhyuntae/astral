@@ -40,10 +40,12 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: SizedBox(
+                          height: (1/12) * height,
                           width: 1.8 * width / 3,
-                          child: Text(widget.title,
+                          child: Text(
+                            widget.title,
                             style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 20,
                                 color: Theme.of(context).colorScheme.primary
                             ),
                           ),
@@ -66,19 +68,21 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
                       child: Align(
                         alignment: Alignment.topCenter,
                         child: SizedBox(
-                          height: 100,
-                          width: 150,
-                          child: (widget.image != null) ? ((kIsWeb) ? Image.network(widget.image!.path) : Image.file(widget.image!)) : const Text("No Image")
+                          height: (1/6) * height,
+                          width: (80/100) * width,
+                          child: (widget.image != null) ? ((kIsWeb) ? Image.network(widget.image!.path) : Image.file(widget.image!)) : const Text(" ")
                         ),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 12.0, top: 16.0),
+                      padding: const EdgeInsets.only(top: 16.0),
                       child: Align(
                         alignment: Alignment.center,
                         child: SizedBox(
-                          width: (85/100) * width,
-                          child: Text(widget.log,
+                          height: (4/6) * height,
+                          width: (75/100) * width,
+                          child: Text(
+                            widget.log,
                             style: TextStyle(
                                 fontSize: 16,
                                 color: Theme.of(context).colorScheme.primary

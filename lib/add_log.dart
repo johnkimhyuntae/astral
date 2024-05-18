@@ -52,6 +52,7 @@ class _AddLogState extends State<AddLog> {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: SizedBox(
+                          height: (1/6) * height,
                           width: 2 * width / 3,
                           child: TextField(
                             maxLines: 3,
@@ -85,8 +86,8 @@ class _AddLogState extends State<AddLog> {
                         alignment: Alignment.topCenter,
                         child: (imageExists) ? 
                           SizedBox(
-                          height: 50,
-                          width: 100,
+                          height: (1/6) * height,
+                          width: (75/100) * width,
                           child: (kIsWeb) ? Image.network(_selectedImage!.path) : Image.file(_selectedImage!)
                         ) : MaterialButton(
                           color: const Color.fromRGBO(37, 40, 58, 1.0),
@@ -105,10 +106,11 @@ class _AddLogState extends State<AddLog> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 16.0, bottom: 12.0),
+                      padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 16.0),
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: SizedBox(
+                          height: (1/3) * height,
                           width: (85/100) * width,
                           child: TextField(
                             maxLines: 9,
@@ -150,8 +152,6 @@ class _AddLogState extends State<AddLog> {
                           color: Colors.green,
                           icon: const Icon(IconData(0xf636, fontFamily: 'MaterialIcons')),
                           onPressed: () {
-                            print(userTitle);
-                            print(userLog);
                             LogData x = LogData(id: uuid.v4(), title: userTitle, date: date, log: userLog, image: _selectedImage);
                             appState.logs.insert(0, x);
                             Navigator.pop(context);
