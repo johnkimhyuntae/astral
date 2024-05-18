@@ -1,3 +1,4 @@
+import 'package:astral/weather_info_type.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -47,9 +48,7 @@ class DayPage extends StatelessWidget {
   Widget moonAndTemperature(AstralState appState) {
     DateTime latestUpdatedTime =
         appState.latestUpdatedTime.add(Duration(days: dayIndex));
-    // TODO: Get temp from AstralState
     latestUpdatedTime = latestUpdatedTime;
-    int temp = 14;
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Center(
@@ -65,7 +64,7 @@ class DayPage extends StatelessWidget {
               ),
             ),
             Text(
-              "$temp°C",
+              appState.statIdValueMapDailyAverage[WType.temperature]![dayIndex],
               style: const TextStyle(
                 color: Color.fromRGBO(253, 245, 230, 1.0),
                 fontSize: 36,

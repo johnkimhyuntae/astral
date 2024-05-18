@@ -1,8 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:reorderable_staggered_scroll_view/reorderable_staggered_scroll_view.dart';
 
-import 'API_handler.dart';
+import 'api_handler.dart';
 import 'log_data.dart';
 import 'time_weather_info_card.dart';
 import 'weather_info_card.dart';
@@ -11,114 +13,73 @@ import 'weather_info_type.dart';
 class AstralState extends ChangeNotifier {
   DateTime latestUpdatedTime = DateTime.now();
 
-  double lat = 52.1951;
-  double lon = 0.1313;
+  double lat = 52.2029;
+  double lon = 0.1179;
 
   Map<WType, String> statIdTitleMap = {
     WType.windSpeed: "Wind Speed",
     WType.windDirection: "Wind Direction",
+    WType.temperature: "Temperature",
+    WType.feltTemperature: "Feels like",
+    WType.cloudPercentage: "Cloud Cover",
   };
-  Map<WType, List<List<String>>> statIdValueMapHourly = {
-    WType.windSpeed: [["20 km/h"]],
-    WType.windDirection: [["NE"]],
-  };
-  Map<WType, List<String>> statIdValueMapDailyAverage = {
-    WType.windSpeed: ["20 km/h"],
-    WType.windDirection: ["NE"],
-  };
+  Map<WType, List<List<String>>> statIdValueMapHourly = {};
+  Map<WType, List<String>> statIdValueMapDailyAverage = {};
+
+  AstralState() {
+    for (var t in WType.values) {
+      statIdValueMapHourly[t] = [];
+      statIdValueMapDailyAverage[t] = [];
+    }
+    List<String> day = [];
+    for (int j = 0; j < 24; j++) {
+      day.add("⟳");
+    }
+    for (int i = 0; i < 7; i++) {
+      for (var t in WType.values) {
+        statIdValueMapHourly[t]!.add(day);
+        statIdValueMapDailyAverage[t]!.add("⟳");
+      }
+    }
+    updateWeather();
+  }
 
   List<LogData> logs = [];
 
   int currentPageIndex = 0;
-
-  AstralState() {
-    updateWeather();
-  }
 
   void updatePageIndex(int page) {
     currentPageIndex = page;
     notifyListeners();
   }
 
-  void updateDateTime() {
-    latestUpdatedTime = DateTime.now();
-    notifyListeners();
-  }
-
-  void updateWeather() {
-    API_caller apiInstance = API_caller();
-    Future<Album> futureAlbum = apiInstance.callAPI(lat, lon);
-    futureAlbum.then((weatherAlbum) {
-      //time
-      statIdValueMapHourly[WType.time] = convertTo2DArrayOfStrings(weatherAlbum.time, "");
-      statIdValueMapDailyAverage[WType.time] = convertToDailyAverages(weatherAlbum.time, "");
-      //wind speed
-      statIdValueMapHourly[WType.windSpeed] = convertTo2DArrayOfStrings(weatherAlbum.windspeed, "km/h");
-      statIdValueMapDailyAverage[WType.windSpeed] = convertToDailyAverages(weatherAlbum.windspeed, "km/h");
-      //wind direction
-      List<int> windDirectionsBearings = weatherAlbum.winddirection;
-      List<String> windDirections = [];
-      for (var i = 0; i < windDirectionsBearings.length; i++) {
-        windDirections.add(bearingToCompass(windDirectionsBearings[i]));
-      }
-      statIdValueMapHourly[WType.windDirection] = convertTo2DArrayOfStrings(windDirections, "");
-      statIdValueMapDailyAverage[WType.windDirection] = convertToDailyAverages(windDirections, "");
-      //temperature
-      statIdValueMapHourly[WType.temperature] = convertTo2DArrayOfStrings(weatherAlbum.temperature, "°C");
-      statIdValueMapDailyAverage[WType.temperature] = convertToDailyAverages(weatherAlbum.temperature, "°C");
-      //felt temperature
-      statIdValueMapHourly[WType.feltTemperature] = convertTo2DArrayOfStrings(weatherAlbum.felttemperature, "°C");
-      statIdValueMapDailyAverage[WType.feltTemperature] = convertToDailyAverages(weatherAlbum.felttemperature, "°C");
-      //humidity
-      statIdValueMapHourly[WType.humidity] = convertTo2DArrayOfStrings(weatherAlbum.relativehumidity, "g/kg");
-      statIdValueMapDailyAverage[WType.humidity] = convertToDailyAverages(weatherAlbum.relativehumidity, "g/kg");
-      //precipitation percentage
-      statIdValueMapHourly[WType.precipitationPercentage] = convertTo2DArrayOfStrings(weatherAlbum.precipitation_percentage, "%");
-      statIdValueMapDailyAverage[WType.precipitationPercentage] = convertToDailyAverages(weatherAlbum.precipitation_percentage, "%");
-      //cloud percentage
-      statIdValueMapHourly[WType.cloudPercentage] = convertTo2DArrayOfStrings(weatherAlbum.cloud_percentage, "%");
-      statIdValueMapDailyAverage[WType.cloudPercentage] = convertToDailyAverages(weatherAlbum.cloud_percentage, "%");
-
-      notifyListeners();
-    });
-
-
-    //statIdValueMap["wind-speed"] = "${Random().nextInt(30)}";
-    //notifyListeners();
-  }
-
-  String bearingToCompass(int bearing) {
-    List<String> compassDirections = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
-    return compassDirections[(bearing + 22) ~/ 45];
-  }
-
-  List<List<String>> convertTo2DArrayOfStrings<T>(List<T> originalData, String units) {
-    List<List<String>> returnValue = [[], [], [], [], [], [], []];
-    for (var i = 0; i < 168; i++) {
-      returnValue[i ~/ 7].add(originalData[i].toString() + " " + units);
+  void parse<T>(
+    String Function(T) parse,
+    String unit,
+    WType type,
+    DailyHourly data, [
+    List? daily,
+  ]) {
+    statIdValueMapHourly[type] = data
+        .map((day) => day.map((e) => "${parse(e)} $unit").toList())
+        .toList();
+    if (daily != null) {
+      statIdValueMapDailyAverage[type] =
+          daily.map((e) => "${parse(e)} $unit").toList();
     }
-    return returnValue;
-  }
-
-  List<String> convertToDailyAverages<T>(List<T> originalData, String units) {
-    List<String> dailyAverages = [];
-    for (var i = 0; i < 7; i++) {
-      double total = 0;
-      for (var j = 0; j < 24; j++) {
-        total += originalData as num;
-      }
-      dailyAverages.add((total / 24).toStringAsPrecision(3) + " " + units);
-    }
-    return dailyAverages;
   }
 
   void updateLocation(String newLocation) {
-    Future<List<double>> futureLatLon = API_handler.fetchLatLon(newLocation);
-    futureLatLon.then((latLon) {
-      lat = latLon[0];
-      lon = latLon[1];
-      updateWeather();
-    });
+    var futureLatLon = APIHandler.fetchLatLon(newLocation);
+    futureLatLon.then(
+      (latLon) {
+        if (latLon == null) return;
+        lat = latLon.lat;
+        lon = latLon.lon;
+        locationController.text = latLon.loc;
+        updateWeather();
+      },
+    );
   }
 
   void addNewLog(LogData x) {
@@ -144,6 +105,113 @@ class AstralState extends ChangeNotifier {
   TextEditingController locationController =
       TextEditingController(text: "Cambridge, UK");
 
+  void updateWeather() {
+    APIHandler.fetchWeatherData(lat, lon).then((weatherData) {
+      parse(
+        (value) {
+          String s = value as String;
+          var dt = DateTime.parse(s);
+          return s;
+        },
+        "",
+        WType.time,
+        weatherData.hourlyData.time,
+        weatherData.dailyData.time,
+      );
+
+      parse(
+        (value) {
+          return "${(value as double) * 3.6}"; // ms^-1 -> kmph
+        },
+        "km/h",
+        WType.windSpeed,
+        weatherData.hourlyData.windspeed,
+        weatherData.dailyData.windspeed_mean,
+      );
+
+      parse(
+        (value) {
+          return "${(value as double).round()}";
+        },
+        "°C",
+        WType.temperature,
+        weatherData.hourlyData.temperature,
+        weatherData.dailyData.temperature_mean,
+      );
+
+      parse(
+        (value) {
+          return "${value as double}";
+        },
+        "°C",
+        WType.feltTemperature,
+        weatherData.hourlyData.felttemperature,
+        weatherData.dailyData.felttemperature_mean,
+      );
+
+      parse(
+        (value) {
+          return "${value as int}";
+        },
+        "%",
+        WType.humidity,
+        weatherData.hourlyData.relativehumidity,
+        weatherData.dailyData.relativehumidity_mean,
+      );
+
+      parse(
+        (value) {
+          return "${value as double}";
+        },
+        "mm",
+        WType.precipitationPercentage,
+        weatherData.hourlyData.precipitation,
+        weatherData.dailyData.precipitation,
+      );
+
+      parse(
+        (value) {
+          return "${value as int}";
+        },
+        "%",
+        WType.cloudPercentage,
+        weatherData.hourlyData.totalcloudcover,
+      );
+      statIdValueMapDailyAverage[WType.cloudPercentage] = [
+        statIdValueMapHourly[WType.cloudPercentage]![0][12],
+        statIdValueMapHourly[WType.cloudPercentage]![1][12],
+        statIdValueMapHourly[WType.cloudPercentage]![2][12],
+        statIdValueMapHourly[WType.cloudPercentage]![3][12],
+        statIdValueMapHourly[WType.cloudPercentage]![4][12],
+        statIdValueMapHourly[WType.cloudPercentage]![5][12],
+        statIdValueMapHourly[WType.cloudPercentage]![6][12],
+      ];
+
+      parse(
+        (value) {
+          final compassDirections = [
+            "N",
+            "NE",
+            "E",
+            "SE",
+            "S",
+            "SW",
+            "W",
+            "NW"
+          ];
+          return compassDirections[min(((value as int) + 22) ~/ 45, 7)];
+        },
+        "",
+        WType.windDirection,
+        weatherData.hourlyData.winddirection,
+        weatherData.dailyData.winddirection,
+      );
+
+      latestUpdatedTime = DateTime.now();
+      notifyListeners();
+    });
+  }
+
   var weatherInfoWidgetsList = [
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("A"),
@@ -167,19 +235,19 @@ class AstralState extends ChangeNotifier {
       key: Key("D"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.windSpeed),
+      widget: WeatherInfoCard(WType.temperature),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("E"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.windSpeed),
+      widget: WeatherInfoCard(WType.feltTemperature),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("F"),
       crossAxisCellCount: 2,
       mainAxisCellCount: 2,
-      widget: WeatherInfoCard(WType.windSpeed),
+      widget: WeatherInfoCard(WType.cloudPercentage),
     ),
   ];
 }

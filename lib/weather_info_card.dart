@@ -48,7 +48,8 @@ class WeatherInfoCard extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 30),
+              // const SizedBox(height: 30),
+              const Spacer(),
               Text(
                 appState.statIdValueMapHourly[wType]![0][0], //[DAY][HOUR]
                 style: TextStyle(
@@ -56,6 +57,7 @@ class WeatherInfoCard extends StatelessWidget {
                   fontSize: 40,
                 ),
               ),
+              const Spacer(),
             ],
           ),
         ),
