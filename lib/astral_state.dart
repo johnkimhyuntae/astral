@@ -18,9 +18,13 @@ class AstralState extends ChangeNotifier {
     WType.windSpeed: "Wind Speed",
     WType.windDirection: "Wind Direction",
   };
-  Map<WType, String> statIdValueMap = {
-    WType.windSpeed: "20 km/h",
-    WType.windDirection: "NE",
+  Map<WType, List<List<String>>> statIdValueMapHourly = {
+    WType.windSpeed: [["20 km/h"]],
+    WType.windDirection: [["NE"]],
+  };
+  Map<WType, List<String>> statIdValueMapDailyAverage = {
+    WType.windSpeed: ["20 km/h"],
+    WType.windDirection: ["NE"],
   };
 
   List<LogData> logs = [];
@@ -46,34 +50,34 @@ class AstralState extends ChangeNotifier {
     Future<Album> futureAlbum = apiInstance.callAPI(lat, lon);
     futureAlbum.then((weatherAlbum) {
       //time
-      statIdValueMapHourly["time"] = convertTo2DArrayOfStrings(weatherAlbum.time, "");
-      statIdValueMapDailyAverage["time"] = convertToDailyAverages(weatherAlbum.time, "");
+      statIdValueMapHourly[WType.time] = convertTo2DArrayOfStrings(weatherAlbum.time, "");
+      statIdValueMapDailyAverage[WType.time] = convertToDailyAverages(weatherAlbum.time, "");
       //wind speed
-      statIdValueMapHourly["wind-speed"] = convertTo2DArrayOfStrings(weatherAlbum.windspeed, "km/h");
-      statIdValueMapDailyAverage["wind-speed"] = convertToDailyAverages(weatherAlbum.windspeed, "km/h");
+      statIdValueMapHourly[WType.windSpeed] = convertTo2DArrayOfStrings(weatherAlbum.windspeed, "km/h");
+      statIdValueMapDailyAverage[WType.windSpeed] = convertToDailyAverages(weatherAlbum.windspeed, "km/h");
       //wind direction
       List<int> windDirectionsBearings = weatherAlbum.winddirection;
       List<String> windDirections = [];
       for (var i = 0; i < windDirectionsBearings.length; i++) {
         windDirections.add(bearingToCompass(windDirectionsBearings[i]));
       }
-      statIdValueMapHourly["wind-direction"] = convertTo2DArrayOfStrings(windDirections, "");
-      statIdValueMapDailyAverage["wind-direction"] = convertToDailyAverages(windDirections, "");
+      statIdValueMapHourly[WType.windDirection] = convertTo2DArrayOfStrings(windDirections, "");
+      statIdValueMapDailyAverage[WType.windDirection] = convertToDailyAverages(windDirections, "");
       //temperature
-      statIdValueMapHourly["temperature"] = convertTo2DArrayOfStrings(weatherAlbum.temperature, "°C");
-      statIdValueMapDailyAverage["temperature"] = convertToDailyAverages(weatherAlbum.temperature, "°C");
+      statIdValueMapHourly[WType.temperature] = convertTo2DArrayOfStrings(weatherAlbum.temperature, "°C");
+      statIdValueMapDailyAverage[WType.temperature] = convertToDailyAverages(weatherAlbum.temperature, "°C");
       //felt temperature
-      statIdValueMapHourly["felt-temperature"] = convertTo2DArrayOfStrings(weatherAlbum.felttemperature, "°C");
-      statIdValueMapDailyAverage["felt-temperature"] = convertToDailyAverages(weatherAlbum.felttemperature, "°C");
+      statIdValueMapHourly[WType.feltTemperature] = convertTo2DArrayOfStrings(weatherAlbum.felttemperature, "°C");
+      statIdValueMapDailyAverage[WType.feltTemperature] = convertToDailyAverages(weatherAlbum.felttemperature, "°C");
       //humidity
-      statIdValueMapHourly["humidity"] = convertTo2DArrayOfStrings(weatherAlbum.relativehumidity, "g/kg");
-      statIdValueMapDailyAverage["humidity"] = convertToDailyAverages(weatherAlbum.relativehumidity, "g/kg");
+      statIdValueMapHourly[WType.humidity] = convertTo2DArrayOfStrings(weatherAlbum.relativehumidity, "g/kg");
+      statIdValueMapDailyAverage[WType.humidity] = convertToDailyAverages(weatherAlbum.relativehumidity, "g/kg");
       //precipitation percentage
-      statIdValueMapHourly["precipitation-percentage"] = convertTo2DArrayOfStrings(weatherAlbum.precipitation_percentage, "%");
-      statIdValueMapDailyAverage["precipitation-percentage"] = convertToDailyAverages(weatherAlbum.precipitation_percentage, "%");
+      statIdValueMapHourly[WType.precipitationPercentage] = convertTo2DArrayOfStrings(weatherAlbum.precipitation_percentage, "%");
+      statIdValueMapDailyAverage[WType.precipitationPercentage] = convertToDailyAverages(weatherAlbum.precipitation_percentage, "%");
       //cloud percentage
-      statIdValueMapHourly["cloud-percentage"] = convertTo2DArrayOfStrings(weatherAlbum.cloud_percentage, "%");
-      statIdValueMapDailyAverage["cloud-percentage"] = convertToDailyAverages(weatherAlbum.cloud_percentage, "%");
+      statIdValueMapHourly[WType.cloudPercentage] = convertTo2DArrayOfStrings(weatherAlbum.cloud_percentage, "%");
+      statIdValueMapDailyAverage[WType.cloudPercentage] = convertToDailyAverages(weatherAlbum.cloud_percentage, "%");
 
       notifyListeners();
     });

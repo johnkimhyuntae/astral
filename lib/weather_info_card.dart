@@ -25,7 +25,7 @@ class WeatherInfoCard extends StatelessWidget {
                 return WeatherInfoExpandedPage(
                 activated: WeatherInfoCardExpanded(
                   title: appState.statIdTitleMap[wType]!,
-                  value: appState.statIdValueMap[wType]!,
+                  value: appState.statIdValueMapHourly[wType]![0][0], //[DAY][HOUR]
                   ),
                 );
               },
@@ -50,7 +50,7 @@ class WeatherInfoCard extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               Text(
-                appState.statIdValueMap[wType]!,
+                appState.statIdValueMapHourly[wType]![0][0], //[DAY][HOUR]
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                   fontSize: 40,
