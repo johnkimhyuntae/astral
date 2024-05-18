@@ -25,7 +25,14 @@ class AddLogPage extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (_, __, ___) => LogPage(),
+                    transitionDuration: Duration.zero,
+                    reverseTransitionDuration: Duration.zero,
+              ),
+            );
               },
               child: Container(
                 color: Color.fromRGBO(0, 0, 0, 0.7),

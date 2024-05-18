@@ -1,21 +1,20 @@
-import 'package:astral/weather_info_card.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
-import 'day_page.dart';
-import 'home_page.dart';
+import 'astral_state.dart';
+import 'main_page.dart';
+import 'page_swiper.dart';
 
 const Color topBg = Color.fromRGBO(253, 245, 230, 1.0);
 
 class WeatherInfoExpandedPage extends StatelessWidget {
-  const WeatherInfoExpandedPage(
-      {super.key, required this.activated});
+  const WeatherInfoExpandedPage({super.key, required this.activated});
 
   final Widget activated;
 
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<AstralState>();
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -23,7 +22,12 @@ class WeatherInfoExpandedPage extends StatelessWidget {
             Column(
               children: [
                 const TopBar(),
-                Flexible(child: DayPage()),
+                Flexible(
+                  child: PageSwiper(
+                    original: false,
+                    initialPageIndex: appState.currentPageIndex,
+                  ),
+                ),
               ],
             ),
             InkWell(
@@ -31,12 +35,12 @@ class WeatherInfoExpandedPage extends StatelessWidget {
                 Navigator.pop(context);
               },
               child: Container(
-                color: Color.fromRGBO(0, 0, 0, 0.7),
+                color: const Color.fromRGBO(0, 0, 0, 0.7),
               ),
             ),
             Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: activated,
+              padding: const EdgeInsets.all(30.0),
+              child: activated,
             ),
           ],
         ),

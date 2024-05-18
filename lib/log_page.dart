@@ -66,7 +66,7 @@ class TopBar extends StatelessWidget {
                   context,
                   PageRouteBuilder(
                     pageBuilder: (_, __, ___) => AddLogPage(
-                      activated: AddLog(date: DateTime.now())),
+                      activated: AddLog()),
                     transitionDuration: Duration.zero,
                     reverseTransitionDuration: Duration.zero,
               ),
