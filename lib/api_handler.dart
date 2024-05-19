@@ -259,9 +259,9 @@ class APIData {
     for (int i = 0; i < 7; i++) {
       List day = [];
       for (int j = 0; j < 24; j++) {
-        day.add(list[i * 7 + 24]);
+        day.add(list[i * 7 + j]);
       }
-      ret.add(list);
+      ret.add(day);
     }
     return ret;
   }

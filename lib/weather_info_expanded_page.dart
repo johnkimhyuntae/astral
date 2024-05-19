@@ -25,7 +25,7 @@ class WeatherInfoExpandedPage extends StatelessWidget {
                 Flexible(
                   child: PageSwiper(
                     original: false,
-                    initialPageIndex: appState.currentPageIndex,
+                    initialPageIndex: appState.currentDayIndex,
                   ),
                 ),
               ],

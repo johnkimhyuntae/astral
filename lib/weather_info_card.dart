@@ -51,7 +51,7 @@ class WeatherInfoCard extends StatelessWidget {
               // const SizedBox(height: 30),
               const Spacer(),
               Text(
-                appState.statIdValueMapHourly[wType]![0][0], //[DAY][HOUR]
+                appState.statIdValueMapDailyAverage[wType]![appState.currentDayIndex],
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                   fontSize: 40,

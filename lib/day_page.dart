@@ -64,7 +64,7 @@ class DayPage extends StatelessWidget {
               ),
             ),
             Text(
-              appState.statIdValueMapDailyAverage[WType.temperature]![dayIndex],
+              appState.statIdValueMapDailyAverage[WType.temperature]![appState.currentDayIndex],
               style: const TextStyle(
                 color: Color.fromRGBO(253, 245, 230, 1.0),
                 fontSize: 36,

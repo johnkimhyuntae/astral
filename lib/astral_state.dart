@@ -46,10 +46,10 @@ class AstralState extends ChangeNotifier {
 
   List<LogData> logs = [];
 
-  int currentPageIndex = 0;
+  int currentDayIndex = 0;
 
   void updatePageIndex(int page) {
-    currentPageIndex = page;
+    currentDayIndex = page;
     notifyListeners();
   }
 

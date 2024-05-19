@@ -95,7 +95,7 @@ class PageIndicator extends StatelessWidget {
     }
 
     var appState = context.watch<AstralState>();
-    int currentPageIndex = appState.currentPageIndex;
+    int currentPageIndex = appState.currentDayIndex;
     tabController.index = currentPageIndex;
     // print(tabController.index);
     return Container(
