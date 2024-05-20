@@ -92,11 +92,7 @@ class _LogEntryState extends State<LogEntry> {
                         color: Colors.red,
                         icon: const Icon(IconData(0xefa9, fontFamily: 'MaterialIcons')),
                         onPressed: () {
-                          for (LogData entry in appState.logs) {
-                            if (entry.id == widget.id) {
-                              appState.logs.remove(entry);
-                            }
-                          }; 
+                          appState.removeLog(widget.id);
                           Navigator.pop(context);
                           Navigator.push(
                             context,
