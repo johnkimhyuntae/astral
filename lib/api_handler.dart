@@ -68,27 +68,27 @@ typedef DailyHourly<T> = List<List<T>>;
 
 class HourlyData {
   final DailyHourly time;
-  final DailyHourly uvindex;
-  final DailyHourly fog_probability;
+  final DailyHourly uvindex; //
+  final DailyHourly fog_probability; //
   final DailyHourly snowfraction;
-  final DailyHourly windspeed;
-  final DailyHourly temperature;
-  final DailyHourly sunshinetime;
-  final DailyHourly precipitation_probability;
+  final DailyHourly windspeed; //
+  final DailyHourly temperature; //
+  final DailyHourly sunshinetime; //
+  final DailyHourly precipitation_probability; //
   final DailyHourly convective_precipitation;
   final DailyHourly highclouds;
   final DailyHourly rainspot;
   final DailyHourly pictocode;
-  final DailyHourly felttemperature;
-  final DailyHourly precipitation;
+  final DailyHourly felttemperature; //
+  final DailyHourly precipitation; //
   final DailyHourly lowclouds;
-  final DailyHourly visibility;
+  final DailyHourly visibility; //
   final DailyHourly isdaylight;
   final DailyHourly midclouds;
-  final DailyHourly totalcloudcover;
+  final DailyHourly totalcloudcover; //
   final DailyHourly relativehumidity;
   final DailyHourly sealevelpressure;
-  final DailyHourly winddirection;
+  final DailyHourly winddirection; //
 
   const HourlyData({
     required this.time,
