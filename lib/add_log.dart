@@ -48,13 +48,14 @@ class _AddLogState extends State<AddLog> {
                 ListView(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 12.0, top: 10.0),
+                      padding: const EdgeInsets.only(left: 16.0, top: 10.0),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: SizedBox(
                           // height: (1/6) * height,
                           width: 5 * width / 9,
                           child: TextField(
+                            style: const TextStyle(fontSize: 22),
                             maxLines: 3,
                             decoration: InputDecoration(
                               hintText: 'Title',
