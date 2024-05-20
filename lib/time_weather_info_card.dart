@@ -15,21 +15,27 @@ class TimeWeatherInfoCard extends StatelessWidget {
     return Card(
       color: const Color.fromRGBO(82, 85, 102, 1.0).withOpacity(0.4),
       elevation: 8.0,
-      child: Container(
-        constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.2,
-        ),
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-          children: [
-            for (int i = 0; i < 24; i++)
-              TimeCard(
-                wType: wType??WType.temperature,
-                hour: i,
-              ),
-          ],
-        ),
+      child: Column(
+        children: [
+          Spacer(),
+          Container(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.width * 0.4,
+            ),
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+              children: [
+                for (int i = 0; i < 24; i++)
+                  TimeCard(
+                    wType: wType??WType.temperature,
+                    hour: i,
+                  ),
+              ],
+            ),
+          ),
+          Spacer(),
+        ],
       ),
     );
   }
