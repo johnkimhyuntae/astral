@@ -29,6 +29,11 @@ class AstralState extends ChangeNotifier {
     WType.visibility: "Visibility",
     WType.windDirection: "Wind Direction",
     WType.windSpeed: "Wind Speed",
+    WType.moonrise: "Moonrise",
+    WType.moonset: "Moonset",
+    WType.moonPhase: "Moon Phase",
+    WType.sunrise: "Sunrise",
+    WType.sunset: "Sunset",
   };
   Map<WType, List<List<String>>> statIdValueMapHourly = {};
   Map<WType, List<String>> statIdValueMapDailyAverage = {};
@@ -62,7 +67,14 @@ class AstralState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void parse<T>(
+  void parseAstro<T>(
+      WType type,
+      List daily) {
+    statIdValueMapDailyAverage[type] =
+        daily.map((e) => (e as String).toUpperCase()).toList();
+  }
+
+  void parseType<T>(
     String Function(T) parse,
     String unit,
     WType type,
@@ -131,7 +143,7 @@ class AstralState extends ChangeNotifier {
     APIHandler.fetchWeatherData(lat, lon).then((weatherData) {
       apiData = weatherData;
 
-      parse(
+      parseType(
             (value) {
           String s = value as String;
           var dt = DateTime.parse(s);
@@ -143,7 +155,7 @@ class AstralState extends ChangeNotifier {
         weatherData.dailyData.time,
       );
 
-      parse(
+      parseType(
             (value) {
               return "${value as int}";
         },
@@ -152,7 +164,7 @@ class AstralState extends ChangeNotifier {
         weatherData.hourlyData.fog_probability,
       );
 
-      parse(
+      parseType(
             (value) {
               return "${value as int}";
         },
@@ -161,7 +173,7 @@ class AstralState extends ChangeNotifier {
         weatherData.hourlyData.sunshinetime,
       );
 
-      parse(
+      parseType(
         (value) {
           return ((value as double) * 3.6).toStringAsPrecision(3); // ms^-1 -> kmph
         },
@@ -171,7 +183,7 @@ class AstralState extends ChangeNotifier {
         weatherData.dailyData.windspeed_mean,
       );
 
-      parse(
+      parseType(
         (value) {
           return ((value as double)).toStringAsFixed(0);
         },
@@ -181,7 +193,7 @@ class AstralState extends ChangeNotifier {
         weatherData.dailyData.temperature_mean,
       );
 
-      parse(
+      parseType(
         (value) {
           return ((value as double)).toStringAsFixed(0);
         },
@@ -191,7 +203,7 @@ class AstralState extends ChangeNotifier {
         weatherData.dailyData.felttemperature_mean,
       );
 
-      parse(
+      parseType(
             (value) {
           return "${(value as int) ~/ 1000}";
         },
@@ -200,7 +212,7 @@ class AstralState extends ChangeNotifier {
         weatherData.hourlyData.visibility,
       );
 
-      parse(
+      parseType(
             (value) {
           return "${value as int}";
         },
@@ -210,7 +222,7 @@ class AstralState extends ChangeNotifier {
         weatherData.dailyData.uvindex,
       );
 
-      parse(
+      parseType(
         (value) {
           return "${value as int}";
         },
@@ -220,7 +232,7 @@ class AstralState extends ChangeNotifier {
         weatherData.dailyData.relativehumidity_mean,
       );
 
-      parse(
+      parseType(
         (value) {
           return (value as double).toStringAsPrecision(3);
         },
@@ -230,7 +242,32 @@ class AstralState extends ChangeNotifier {
         weatherData.dailyData.precipitation,
       );
 
-      parse(
+      parseAstro(
+        WType.moonrise,
+        weatherData.dailyData.moonrise,
+      );
+
+      parseAstro(
+        WType.moonset,
+        weatherData.dailyData.moonset,
+      );
+
+      parseAstro(
+        WType.moonPhase,
+        weatherData.dailyData.moonphasename,
+      );
+
+      parseAstro(
+        WType.sunrise,
+        weatherData.dailyData.sunrise,
+      );
+
+      parseAstro(
+        WType.sunset,
+        weatherData.dailyData.sunset,
+      );
+
+      parseType(
             (value) {
           return (value as int).toString();
         },
@@ -240,7 +277,7 @@ class AstralState extends ChangeNotifier {
         weatherData.dailyData.precipitation_probability,
       );
 
-      parse(
+      parseType(
         (value) {
           return "${value as int}";
         },
@@ -249,7 +286,7 @@ class AstralState extends ChangeNotifier {
         weatherData.hourlyData.totalcloudcover,
       );
 
-      parse(
+      parseType(
         (value) {
           final compassDirections = [
             "N",
@@ -346,6 +383,36 @@ class AstralState extends ChangeNotifier {
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
       widget: WeatherInfoCard(WType.windSpeed),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("N"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.moonPhase),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("O"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.moonrise),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("P"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.moonset),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("Q"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.sunrise),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("R"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.sunset),
     ),
   ];
 }
