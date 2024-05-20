@@ -26,21 +26,21 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
 
     return Center(
       child: SizedBox(
-        height: height - 20,
+        // height: height - 20,
         width: width - 20,
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Card(
             child: Stack(
               children: [
-                Column(
+                ListView(
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 12.0, top: 10.0),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: SizedBox(
-                          height: (1/12) * height,
+                          // height: (1/12) * height,
                           width: 1.8 * width / 3,
                           child: Text(
                             widget.title,
@@ -53,7 +53,7 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 12.0, bottom: 16.0),
+                      padding: const EdgeInsets.only(left: 12.0, bottom: 5.0),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(DateFormat("EEEE, d MMMM y").format(widget.date),
@@ -64,27 +64,27 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 16.0, bottom: 10.0),
+                      padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
                       child: Align(
                         alignment: Alignment.topCenter,
                         child: SizedBox(
-                          height: (1/8) * height,
+                          // height: (1/8) * height,
                           width: (80/100) * width,
                           child: (widget.image != null) ? ((kIsWeb) ? Image.network(widget.image!.path) : Image.file(widget.image!)) : const Text(" ")
                         ),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
+                      padding: const EdgeInsets.only(top: 5.0),
                       child: Align(
-                        alignment: Alignment.center,
+                        alignment: Alignment.topCenter,
                         child: SizedBox(
-                          height: (3/6) * height,
+                          // height: (3/6) * height,
                           width: (75/100) * width,
                           child: Text(
                             widget.log,
                             style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 18,
                                 color: Theme.of(context).colorScheme.primary
                             ),
                           ),

@@ -38,22 +38,22 @@ class _AddLogState extends State<AddLog> {
 
     return Center(
       child: SizedBox(
-        height: height - 20,
+        // height: height - 20,
         width: width - 20,
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Card(
             child: Stack(
               children: [
-                Column(
+                ListView(
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 12.0, top: 10.0),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: SizedBox(
-                          height: (1/6) * height,
-                          width: 2 * width / 3,
+                          // height: (1/6) * height,
+                          width: 5 * width / 9,
                           child: TextField(
                             maxLines: 3,
                             decoration: InputDecoration(
@@ -86,7 +86,7 @@ class _AddLogState extends State<AddLog> {
                         alignment: Alignment.topCenter,
                         child: (imageExists) ? 
                           SizedBox(
-                          height: (1/6) * height,
+                          // height: (1/6) * height,
                           width: (75/100) * width,
                           child: (kIsWeb) ? Image.network(_selectedImage!.path) : Image.file(_selectedImage!)
                         ) : MaterialButton(
@@ -110,7 +110,7 @@ class _AddLogState extends State<AddLog> {
                       child: Align(
                         alignment: Alignment.bottomCenter,
                         child: SizedBox(
-                          height: (1/3) * height,
+                          // height: (1/3) * height,
                           width: (85/100) * width,
                           child: TextField(
                             maxLines: 9,
