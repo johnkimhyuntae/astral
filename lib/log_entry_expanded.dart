@@ -68,7 +68,7 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
                       child: Align(
                         alignment: Alignment.topCenter,
                         child: SizedBox(
-                          height: (1/6) * height,
+                          height: (1/8) * height,
                           width: (80/100) * width,
                           child: (widget.image != null) ? ((kIsWeb) ? Image.network(widget.image!.path) : Image.file(widget.image!)) : const Text(" ")
                         ),
@@ -79,7 +79,7 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
                       child: Align(
                         alignment: Alignment.center,
                         child: SizedBox(
-                          height: (4/6) * height,
+                          height: (3/6) * height,
                           width: (75/100) * width,
                           child: Text(
                             widget.log,
