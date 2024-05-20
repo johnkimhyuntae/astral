@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
-class TimeWeatherInfoCard extends StatefulWidget {
+import 'astral_state.dart';
+
+class TimeWeatherInfoCard extends StatelessWidget {
   const TimeWeatherInfoCard({super.key});
 
   @override
-  State<TimeWeatherInfoCard> createState() => _TimeWeatherInfoCardState();
-}
-
-class _TimeWeatherInfoCardState extends State<TimeWeatherInfoCard> {
-  @override
   Widget build(BuildContext context) {
+    var appState = context.watch<AstralState>();
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.2,
       child: Card(
@@ -21,7 +20,7 @@ class _TimeWeatherInfoCardState extends State<TimeWeatherInfoCard> {
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
           children: [
             for (var i = 0; i < 24; i++)
-              TimeCard(time: DateTime.now().add(Duration(hours: i))),
+              TimeCard(time: DateTime.now().add(Duration(hours: -DateTime.now().hour + i))),
           ],
         ),
       ),
@@ -31,7 +30,8 @@ class _TimeWeatherInfoCardState extends State<TimeWeatherInfoCard> {
 
 class TimeCard extends StatelessWidget {
   TimeCard({super.key, required this.time}) {
-    // TODO: Get data from api
+    appState.statIdValueMapHourly[wType]![
+    appState.currentDayIndex]
     raininess = "Rainy";
     temp = -5;
   }

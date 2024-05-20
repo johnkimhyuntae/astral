@@ -25,7 +25,7 @@ class WeatherInfoCard extends StatelessWidget {
                   activated: WeatherInfoCardExpanded(
                     title: appState.statIdTitleMap[wType]!,
                     value: appState.statIdValueMapHourly[wType]![
-                        appState.currentDayIndex][0], //[DAY][HOUR]
+                        appState.currentDayIndex][DateTime.now().hour], //[DAY][HOUR]
                   ),
                 );
               },
