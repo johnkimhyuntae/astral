@@ -75,7 +75,7 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 5.0),
+                      padding: const EdgeInsets.only(top: 5.0, left: 12.0),
                       child: Align(
                         alignment: Alignment.topCenter,
                         child: SizedBox(
