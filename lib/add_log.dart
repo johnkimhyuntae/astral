@@ -48,7 +48,7 @@ class _AddLogState extends State<AddLog> {
                 ListView(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 16.0, top: 10.0),
+                      padding: const EdgeInsets.only(left: 12.0, top: 10.0),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: SizedBox(
@@ -71,7 +71,7 @@ class _AddLogState extends State<AddLog> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 10, left: 16.0),
+                      padding: const EdgeInsets.only(top: 10, left: 20.0),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(appState.locationController.text,
@@ -82,7 +82,7 @@ class _AddLogState extends State<AddLog> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 16.0, bottom: 10.0),
+                      padding: const EdgeInsets.only(left: 20.0, bottom: 10.0),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(DateFormat("EEEE, d MMMM y").format(date),
@@ -99,7 +99,7 @@ class _AddLogState extends State<AddLog> {
                         child: (imageExists) ? 
                           SizedBox(
                           // height: (1/6) * height,
-                          width: (75/100) * width,
+                          width: (65/100) * width,
                           child: (kIsWeb) ? Image.network(_selectedImage!.path) : Image.file(_selectedImage!)
                         ) : MaterialButton(
                           color: const Color.fromRGBO(37, 40, 58, 1.0),

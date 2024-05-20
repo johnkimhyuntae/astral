@@ -56,7 +56,7 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 5, left: 12.0, bottom: 5.0),
+                      padding: const EdgeInsets.only(top: 5, left: 12.0),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(appState.locationController.text,
@@ -67,7 +67,7 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 12.0, bottom: 5.0),
+                      padding: const EdgeInsets.only(left: 12.0, bottom: 12.0),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(DateFormat("EEEE, d MMMM y").format(widget.date),
@@ -83,13 +83,13 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
                         alignment: Alignment.topCenter,
                         child: SizedBox(
                           // height: (1/8) * height,
-                          width: (80/100) * width,
+                          width: (65/100) * width,
                           child: (widget.image != null) ? ((kIsWeb) ? Image.network(widget.image!.path) : Image.file(widget.image!)) : const Text(" ")
                         ),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 5.0, left: 12.0),
+                      padding: const EdgeInsets.only(top: 12.0),
                       child: Align(
                         alignment: Alignment.topCenter,
                         child: SizedBox(
