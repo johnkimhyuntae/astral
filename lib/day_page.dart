@@ -35,11 +35,12 @@ class DayPage extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 12),
-          child: ReorderableStaggeredScrollView.grid(
+          child: /*This is a very necessary container for desktop*/ Container(
+              child: ReorderableStaggeredScrollView.grid(
             crossAxisCount: 2,
             // TODO: Copy package into repo and make delay changeable
             children: appState.weatherInfoWidgetsList,
-          ),
+          )),
         ),
       ],
     );
@@ -64,7 +65,8 @@ class DayPage extends StatelessWidget {
               ),
             ),
             Text(
-              appState.statIdValueMapDailyAverage[WType.temperature]![appState.currentDayIndex],
+              appState.statIdValueMapDailyAverage[WType.temperature]![
+                  appState.currentDayIndex],
               style: const TextStyle(
                 color: Color.fromRGBO(253, 245, 230, 1.0),
                 fontSize: 36,

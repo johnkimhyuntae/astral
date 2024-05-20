@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:provider/provider.dart';
 import 'main_page.dart';
 import 'astral_state.dart';
 
 void main() {
   runApp(const AstralApp());
+}
+
+class MouseTouchScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
 }
 
 class AstralApp extends StatelessWidget {
@@ -16,13 +26,15 @@ class AstralApp extends StatelessWidget {
     const foreground = Color.fromRGBO(246, 231, 196, 1.0);
     const background = Color.fromRGBO(36, 38, 56, 1.0);
     const astralAccent = Color.fromRGBO(79, 52, 85, 1.0);
-    const basicallyBlack = Color.fromRGBO(23, 25, 33, 1.0); //black but a bit bluer, to fit with navy
+    const basicallyBlack = Color.fromRGBO(
+        23, 25, 33, 1.0); //black but a bit bluer, to fit with navy
     const ohNoRed = Color.fromRGBO(187, 21, 18, 1.0);
 
     return ChangeNotifierProvider(
       create: (context) => AstralState(),
       child: MaterialApp(
         title: 'Astral',
+        scrollBehavior: MouseTouchScrollBehavior(),
         theme: ThemeData(
           fontFamily: 'Nunito',
           textTheme: const TextTheme(

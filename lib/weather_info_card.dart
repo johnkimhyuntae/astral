@@ -1,4 +1,3 @@
-import 'package:astral/weather_info_type.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +24,7 @@ class WeatherInfoCard extends StatelessWidget {
                 return WeatherInfoExpandedPage(
                 activated: WeatherInfoCardExpanded(
                   title: appState.statIdTitleMap[wType]!,
-                  value: appState.statIdValueMapHourly[wType]![0][0], //[DAY][HOUR]
+                  value: appState.statIdValueMapHourly[wType]![appState.currentDayIndex][0], //[DAY][HOUR]
                   ),
                 );
               },
@@ -48,7 +47,6 @@ class WeatherInfoCard extends StatelessWidget {
                   ),
                 ),
               ),
-              // const SizedBox(height: 30),
               const Spacer(),
               Text(
                 appState.statIdValueMapDailyAverage[wType]![appState.currentDayIndex],
