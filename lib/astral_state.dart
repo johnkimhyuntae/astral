@@ -22,7 +22,8 @@ class AstralState extends ChangeNotifier {
     WType.temperature: "Temperature",
     WType.feltTemperature: "Feels like",
     WType.cloudPercentage: "Cloud Cover",
-    WType.precipitation: "Precipitation",
+    WType.precipitation: "Precipitation (mm)",
+    WType.precipitationPercentage: "Precipitation (%)",
   };
   Map<WType, List<List<String>>> statIdValueMapHourly = {};
   Map<WType, List<String>> statIdValueMapDailyAverage = {};
@@ -176,6 +177,16 @@ class AstralState extends ChangeNotifier {
       );
 
       parse(
+            (value) {
+          return (value as int).toString();
+        },
+        "%",
+        WType.precipitationPercentage,
+        weatherData.hourlyData.precipitation_probability,
+        weatherData.dailyData.precipitation_probability,
+      );
+
+      parse(
         (value) {
           return "${value as int}";
         },
@@ -260,6 +271,12 @@ class AstralState extends ChangeNotifier {
       crossAxisCellCount: 2,
       mainAxisCellCount: 2,
       widget: WeatherInfoCard(WType.precipitation),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("H"),
+      crossAxisCellCount: 2,
+      mainAxisCellCount: 2,
+      widget: WeatherInfoCard(WType.precipitationPercentage),
     ),
   ];
 }
