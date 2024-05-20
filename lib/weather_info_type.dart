@@ -12,4 +12,9 @@ enum WType {
   visibility,
   windDirection,
   windSpeed,
+  moonrise,
+  moonset,
+  moonPhase,
+  sunrise,
+  sunset,
 }

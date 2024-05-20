@@ -47,19 +47,40 @@ class APIHandler {
       },
     );
     print(uri);
-    final response = await http.get(uri);
+    final expansiveResponse = await http.get(uri);
+    print('Received Weather API response');
+    uri = Uri.https(
+      "my.meteoblue.com",
+      "packages/basic-1h_sunmoon",
+      {
+        "apikey": "A0fdQ5eDnNypHMTZ",
+        "lat": lat.toString(),
+        "lon": lon.toString(),
+        "asl": "279",
+        "format": "json",
+      },
+    );
+    print(uri);
+    final moonResponse = await http.get(uri);
     print('Received Weather API response');
 
-    if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      return APIData.fromJson(
-        jsonDecode(response.body) as Map<String, dynamic>,
-      );
-    } else {
+    if (expansiveResponse.statusCode != 200) {
       // If the server did not return a 200 OK response,
       // then throw an exception.
       throw Exception('Failed to load album');
+    }
+    if (moonResponse.statusCode != 200) {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
+    {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      return APIData.fromJson(
+        jsonDecode(expansiveResponse.body) as Map<String, dynamic>,
+        jsonDecode(moonResponse.body) as Map<String, dynamic>,
+      );
     }
   }
 }
@@ -146,6 +167,11 @@ class DailyData {
   final List relativehumidity_mean;
   final List predictability_class;
   final List windspeed_max;
+  final List moonrise;
+  final List moonset;
+  final List moonphasename;
+  final List sunrise;
+  final List sunset;
 
   const DailyData({
     required this.time,
@@ -177,6 +203,11 @@ class DailyData {
     required this.relativehumidity_mean,
     required this.predictability_class,
     required this.windspeed_max,
+    required this.moonrise,
+    required this.moonset,
+    required this.moonphasename,
+    required this.sunrise,
+    required this.sunset,
   });
 }
 
@@ -191,9 +222,10 @@ class APIData {
     required this.dailyData,
   });
 
-  factory APIData.fromJson(Map<String, dynamic> json) {
+  factory APIData.fromJson(Map<String, dynamic> json, Map<String, dynamic> moonJson) {
     var hourly = json["data_1h"];
     var daily = json["data_day"];
+    var moon = moonJson["data_day"];
     return APIData(
       metadata: Metadata.fromJson(json['metadata']),
       hourlyData: HourlyData(
@@ -250,6 +282,11 @@ class APIData {
         relativehumidity_mean: daily["relativehumidity_mean"],
         predictability_class: daily["predictability_class"],
         windspeed_max: daily["windspeed_max"],
+        moonrise: moon["moonrise"],
+        moonphasename: moon["moonphasename"],
+        moonset: moon["moonset"],
+        sunrise: moon["sunrise"],
+        sunset: moon["sunset"],
       ),
     );
   }
