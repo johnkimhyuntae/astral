@@ -1,3 +1,4 @@
+import 'weather_info_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,10 @@ class TimeWeatherInfoCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
           children: [
             for (var i = 0; i < 24; i++)
-              TimeCard(time: DateTime.now().add(Duration(hours: -DateTime.now().hour + i))),
+              TimeCard(time: DateTime.now().add(Duration(hours: -DateTime.now().hour + i)),
+                  rainVal: appState.statIdValueMapHourly[WType.precipitation]![appState.currentDayIndex][i],
+                  tempVal: appState.statIdValueMapHourly[WType.temperature]![appState.currentDayIndex][i],
+                  cloudVal: appState.statIdValueMapHourly[WType.cloudPercentage]![appState.currentDayIndex][i]),
           ],
         ),
       ),
@@ -29,16 +33,12 @@ class TimeWeatherInfoCard extends StatelessWidget {
 }
 
 class TimeCard extends StatelessWidget {
-  TimeCard({super.key, required this.time}) {
-    //appState.statIdValueMapHourly[wType]![
-    //appState.currentDayIndex]
-    raininess = "Rainy";
-    temp = -5;
-  }
+  TimeCard({super.key, required this.time, required this.rainVal, required this.tempVal, required this.cloudVal}) {}
 
   final DateTime time;
-  late final String raininess;
-  late final int temp;
+  final String rainVal;
+  final String tempVal;
+  final String cloudVal;
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +50,9 @@ class TimeCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text("${time.hour}:00"),
-            Text(raininess),
+            (int.parse(rainVal) < 10) ? (Icon(Icons.sunny)) : (Icon(Icons.water_drop)),
             const Icon(Icons.water_drop),
-            Text("$temp°C"),
+            Text("$tempVal°C"),
           ],
         ),
       ),
