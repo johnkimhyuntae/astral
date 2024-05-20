@@ -22,9 +22,10 @@ class WeatherInfoCard extends StatelessWidget {
             PageRouteBuilder(
               pageBuilder: (_, __, ___) {
                 return WeatherInfoExpandedPage(
-                activated: WeatherInfoCardExpanded(
-                  title: appState.statIdTitleMap[wType]!,
-                  value: appState.statIdValueMapHourly[wType]![appState.currentDayIndex][0], //[DAY][HOUR]
+                  activated: WeatherInfoCardExpanded(
+                    title: appState.statIdTitleMap[wType]!,
+                    value: appState.statIdValueMapHourly[wType]![
+                        appState.currentDayIndex][0], //[DAY][HOUR]
                   ),
                 );
               },
@@ -34,28 +35,40 @@ class WeatherInfoCard extends StatelessWidget {
           );
         },
         child: Card(
-          child: Column(
+          child: Stack(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0, top: 8.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    appState.statIdTitleMap[wType]!.toUpperCase(),
-                    style:
-                        TextStyle(color: Theme.of(context).colorScheme.primary),
+              Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, top: 8.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        appState.statIdTitleMap[wType]!.toUpperCase(),
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
+                    ),
                   ),
+                  const Spacer(),
+                  Text(
+                    appState.statIdValueMapDailyAverage[wType]![
+                        appState.currentDayIndex],
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontSize: 32,
+                    ),
+                  ),
+                  const Spacer(),
+                ],
+              ),
+              const Positioned(
+                right: 0,
+                child: Icon(
+                  Icons.drag_indicator_outlined,
+                  color: Colors.black,
                 ),
               ),
-              const Spacer(),
-              Text(
-                appState.statIdValueMapDailyAverage[wType]![appState.currentDayIndex],
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontSize: 32,
-                ),
-              ),
-              const Spacer(),
             ],
           ),
         ),
@@ -91,10 +104,10 @@ class WeatherInfoCardExpanded extends StatelessWidget {
                       child: Text(
                         title,
                         style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary,
-                            fontWeight: FontWeight.bold,
-                            ),
+                          color: Theme.of(context).colorScheme.primary,
+                          fontWeight: FontWeight.bold,
                         ),
+                      ),
                     ),
                     const SizedBox(height: 30),
                     const TimeWeatherInfoCard(),
@@ -164,7 +177,7 @@ class WeatherInfoCardExpanded extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'The wind speed is calculated using the average over a short period of time. Gusts are short bursts of wind aove this average. A gust typically lasts under 20 seconds.',
+                        'The wind speed is calculated using the average over a short period of time. Gusts are short bursts of wind above this average. A gust typically lasts under 20 seconds.',
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
                         ),
