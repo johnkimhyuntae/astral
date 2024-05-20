@@ -30,8 +30,8 @@ class TimeWeatherInfoCard extends StatelessWidget {
 
 class TimeCard extends StatelessWidget {
   TimeCard({super.key, required this.time}) {
-    appState.statIdValueMapHourly[wType]![
-    appState.currentDayIndex]
+    //appState.statIdValueMapHourly[wType]![
+    //appState.currentDayIndex]
     raininess = "Rainy";
     temp = -5;
   }
