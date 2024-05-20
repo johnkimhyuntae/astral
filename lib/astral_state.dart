@@ -17,13 +17,18 @@ class AstralState extends ChangeNotifier {
   double lon = 0.1179;
 
   Map<WType, String> statIdTitleMap = {
-    WType.windSpeed: "Wind Speed",
-    WType.windDirection: "Wind Direction",
-    WType.temperature: "Temperature",
-    WType.feltTemperature: "Feels like",
     WType.cloudPercentage: "Cloud Cover",
-    WType.precipitation: "Precipitation (mm)",
-    WType.precipitationPercentage: "Precipitation (%)",
+    WType.feltTemperature: "Feels like",
+    WType.fogPercentage: "Fog",
+    WType.humidity: "Humidity",
+    WType.precipitation: "Rainfall",
+    WType.precipitationPercentage: "Precipitation",
+    WType.sunshineMinutes: "Sunshine",
+    WType.temperature: "Temperature",
+    WType.uvIndex: "Uv Index",
+    WType.visibility: "Visibility",
+    WType.windDirection: "Wind Direction",
+    WType.windSpeed: "Wind Speed",
   };
   Map<WType, List<List<String>>> statIdValueMapHourly = {};
   Map<WType, List<String>> statIdValueMapDailyAverage = {};
@@ -71,6 +76,14 @@ class AstralState extends ChangeNotifier {
       statIdValueMapDailyAverage[type] =
           daily.map((e) => "${parse(e)}$unit").toList();
     }
+    else {
+      List<String> avg = [];
+      for (int i = 0; i < 7; i++) {
+          avg.add("${parse(data[i][DateTime.now().hour])}$unit");
+        }
+
+      statIdValueMapDailyAverage[type] = avg;
+    }
   }
 
   void updateLocation(String newLocation) {
@@ -117,8 +130,9 @@ class AstralState extends ChangeNotifier {
   void updateWeather() {
     APIHandler.fetchWeatherData(lat, lon).then((weatherData) {
       apiData = weatherData;
+
       parse(
-        (value) {
+            (value) {
           String s = value as String;
           var dt = DateTime.parse(s);
           return s;
@@ -127,6 +141,24 @@ class AstralState extends ChangeNotifier {
         WType.time,
         weatherData.hourlyData.time,
         weatherData.dailyData.time,
+      );
+
+      parse(
+            (value) {
+              return "${value as int}";
+        },
+        "%",
+        WType.fogPercentage,
+        weatherData.hourlyData.fog_probability,
+      );
+
+      parse(
+            (value) {
+              return "${value as int}";
+        },
+        " mins",
+        WType.sunshineMinutes,
+        weatherData.hourlyData.sunshinetime,
       );
 
       parse(
@@ -157,6 +189,25 @@ class AstralState extends ChangeNotifier {
         WType.feltTemperature,
         weatherData.hourlyData.felttemperature,
         weatherData.dailyData.felttemperature_mean,
+      );
+
+      parse(
+            (value) {
+          return "${(value as int) ~/ 1000}";
+        },
+        " km",
+        WType.visibility,
+        weatherData.hourlyData.visibility,
+      );
+
+      parse(
+            (value) {
+          return "${value as int}";
+        },
+        "",
+        WType.uvIndex,
+        weatherData.hourlyData.uvindex,
+        weatherData.dailyData.uvindex,
       );
 
       parse(
@@ -197,15 +248,6 @@ class AstralState extends ChangeNotifier {
         WType.cloudPercentage,
         weatherData.hourlyData.totalcloudcover,
       );
-      statIdValueMapDailyAverage[WType.cloudPercentage] = [
-        statIdValueMapHourly[WType.cloudPercentage]![0][12],
-        statIdValueMapHourly[WType.cloudPercentage]![1][12],
-        statIdValueMapHourly[WType.cloudPercentage]![2][12],
-        statIdValueMapHourly[WType.cloudPercentage]![3][12],
-        statIdValueMapHourly[WType.cloudPercentage]![4][12],
-        statIdValueMapHourly[WType.cloudPercentage]![5][12],
-        statIdValueMapHourly[WType.cloudPercentage]![6][12],
-      ];
 
       parse(
         (value) {
@@ -235,51 +277,75 @@ class AstralState extends ChangeNotifier {
   var weatherInfoWidgetsList = [
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("A"),
-      crossAxisCellCount: 1,
-      mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.windSpeed),
-    ),
-    const ReorderableStaggeredScrollViewGridCountItem(
-      key: Key("B"),
-      crossAxisCellCount: 1,
-      mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.windDirection),
-    ),
-    const ReorderableStaggeredScrollViewGridCountItem(
-      key: Key("C"),
       crossAxisCellCount: 2,
       mainAxisCellCount: 1,
       widget: TimeWeatherInfoCard(WType.temperature),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
-      key: Key("D"),
+      key: Key("B"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.temperature),
+      widget: WeatherInfoCard(WType.cloudPercentage),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
-      key: Key("E"),
+      key: Key("C"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
       widget: WeatherInfoCard(WType.feltTemperature),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
-      key: Key("F"),
-      crossAxisCellCount: 2,
-      mainAxisCellCount: 2,
-      widget: WeatherInfoCard(WType.cloudPercentage),
+      key: Key("D"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.fogPercentage),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
-      key: Key("G"),
-      crossAxisCellCount: 2,
-      mainAxisCellCount: 2,
+      key: Key("E"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.humidity),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("F"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
       widget: WeatherInfoCard(WType.precipitation),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
-      key: Key("H"),
-      crossAxisCellCount: 2,
-      mainAxisCellCount: 2,
+      key: Key("G"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
       widget: WeatherInfoCard(WType.precipitationPercentage),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("H"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.sunshineMinutes),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("J"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.uvIndex),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("K"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.visibility),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("L"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.windDirection),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("M"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.windSpeed),
     ),
   ];
 }
