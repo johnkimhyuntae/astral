@@ -26,6 +26,7 @@ class WeatherInfoCard extends StatelessWidget {
                     title: appState.statIdTitleMap[wType]!,
                     value: appState.statIdValueMapHourly[wType]![
                         appState.currentDayIndex][DateTime.now().hour], //[DAY][HOUR]
+                    wType: wType,
                   ),
                 );
               },
@@ -35,42 +36,57 @@ class WeatherInfoCard extends StatelessWidget {
           );
         },
         child: Card(
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0, top: 8.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        appState.statIdTitleMap[wType]!.toUpperCase(),
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary),
+          child: Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Stack(
+              children: [
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0, top: 8.0),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          appState.statIdTitleMap[wType]!.toUpperCase(),
+                          style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                              fontSize: MediaQuery.of(context).size.width / 30,
+                              ),
+                        ),
                       ),
                     ),
-                  ),
-                  const Spacer(),
-                  Text(
-                    appState.statIdValueMapDailyAverage[wType]![
-                        appState.currentDayIndex],
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontSize: 32,
+                    const Spacer(
+                      flex: 4,
                     ),
-                  ),
-                  const Spacer(),
-                ],
-              ),
-              const Positioned(
-                top: 5,
-                right: 2,
-                child: Icon(
-                  Icons.drag_indicator_outlined,
-                  color: Colors.black,
+            
+                    // Value of the weather info card
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        return Text(
+                          appState.statIdValueMapDailyAverage[wType]![
+                              appState.currentDayIndex],
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontSize: constraints.maxWidth / 5,
+                          ),
+                        );
+                      }
+                    ),
+                    const Spacer(
+                      flex: 5,
+                    ),
+                  ],
                 ),
-              ),
-            ],
+                const Positioned(
+                  right: 1,
+                  top: 4,
+                  child: Icon(
+                    Icons.drag_indicator_outlined,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -81,11 +97,13 @@ class WeatherInfoCard extends StatelessWidget {
 class WeatherInfoCardExpanded extends StatelessWidget {
   final String title;
   final String value;
+  final WType wType;
 
   const WeatherInfoCardExpanded({
     super.key,
     required this.title,
     required this.value,
+    required this.wType,
   });
 
   @override
@@ -100,6 +118,8 @@ class WeatherInfoCardExpanded extends StatelessWidget {
                 padding: const EdgeInsets.all(15.0),
                 child: ListView(
                   children: [
+
+                    // Title of the expanded weather info card
                     Align(
                       alignment: Alignment.center,
                       child: Text(
@@ -110,18 +130,14 @@ class WeatherInfoCardExpanded extends StatelessWidget {
                         ),
                       ),
                     ),
+
                     const SizedBox(height: 30),
-                    const TimeWeatherInfoCard(),
-                    Center(
-                      child: Text(
-                        value,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontSize: 40,
-                        ),
-                      ),
-                    ),
+
+                    TimeWeatherInfoCard(wType),
+
                     const SizedBox(height: 30),
+
+                    // Daily Summary
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -143,6 +159,8 @@ class WeatherInfoCardExpanded extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 30),
+
+                    // Daily Comparison
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -164,6 +182,8 @@ class WeatherInfoCardExpanded extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 30),
+
+                    // About [weather metric]
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(

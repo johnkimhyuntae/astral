@@ -6,25 +6,29 @@ import 'package:provider/provider.dart';
 import 'astral_state.dart';
 
 class TimeWeatherInfoCard extends StatelessWidget {
-  const TimeWeatherInfoCard({super.key});
+  final WType wType;
+  
+  const TimeWeatherInfoCard(this.wType, {super.key});
 
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<AstralState>();
-    return SizedBox(
-      // height: MediaQuery.of(context).size.height * 0.2,
-      child: Card(
-        color: const Color.fromRGBO(82, 85, 102, 1.0).withOpacity(0.4),
-        elevation: 8.0,
+    return Card(
+      color: const Color.fromRGBO(82, 85, 102, 1.0).withOpacity(0.4),
+      elevation: 8.0,
+      child: Container(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.2,
+        ),
         child: ListView(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
           children: [
             for (var i = 0; i < 24; i++)
-              TimeCard(time: DateTime.now().add(Duration(hours: -DateTime.now().hour + i)),
-                  rainVal: appState.statIdValueMapHourly[WType.precipitation]![appState.currentDayIndex][i],
-                  tempVal: appState.statIdValueMapHourly[WType.temperature]![appState.currentDayIndex][i],
-                  cloudVal: appState.statIdValueMapHourly[WType.cloudPercentage]![appState.currentDayIndex][i]),
+              TimeCard(
+                wType,
+                time: DateTime.now().add(Duration(hours: i)),
+              ),
           ],
         ),
       ),
@@ -33,30 +37,80 @@ class TimeWeatherInfoCard extends StatelessWidget {
 }
 
 class TimeCard extends StatelessWidget {
-  TimeCard({super.key, required this.time, required this.rainVal, required this.tempVal, required this.cloudVal}) {}
-
+  final WType wType;
   final DateTime time;
-  final String rainVal;
-  final String tempVal;
-  final String cloudVal;
+  late final String raininess;
+  late final int temp;
+  
+  TimeCard(this.wType, {super.key, required this.time}) {
+    // TODO: Get data from api
+    raininess = "Rainy";
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      // color: Colors.transparent,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text("${time.hour}:00"),
-            (int.parse(rainVal) < 10) ? (Icon(Icons.sunny)) : (Icon(Icons.water_drop)),
-            const Icon(Icons.water_drop),
-            Text("$tempVal°C"),
-          ],
-        ),
-      ),
-    );
+    switch (wType) {
+      case WType.temperature:
+        temp = -5;
+        return SizedBox(
+          height: MediaQuery.of(context).size.height * 0.2,
+          child: Card(
+            // color: Colors.transparent,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text("${time.hour}:00"),
+                  Text(raininess),
+                  const Icon(Icons.water_drop),
+                  Text("$temp°C"),
+                ],
+              ),
+            ),
+          ),
+        );
+
+      case WType.windSpeed:
+        temp = 5;
+        return SizedBox(
+          height: MediaQuery.of(context).size.height * 0.2,
+          child: Card(
+            // color: Colors.transparent,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text("${time.hour}:00"),
+                  Text(raininess),
+                  Text("$temp°C"),
+                ],
+              ),
+            ),
+          ),
+        );
+
+      default:
+        return SizedBox(
+          height: MediaQuery.of(context).size.height * 0.1,
+          child: Card(
+            // color: Colors.transparent,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text("${time.hour}:00"),
+                  Text("$temp°C"),
+                ],
+              ),
+            ),
+          ),
+        );
+    }
+      
+      
+    }
   }
 
-}

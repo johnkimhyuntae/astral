@@ -249,7 +249,7 @@ class AstralState extends ChangeNotifier {
       key: Key("C"),
       crossAxisCellCount: 2,
       mainAxisCellCount: 1,
-      widget: TimeWeatherInfoCard(),
+      widget: TimeWeatherInfoCard(WType.temperature),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("D"),
