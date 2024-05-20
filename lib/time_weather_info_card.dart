@@ -7,12 +7,11 @@ import 'astral_state.dart';
 
 class TimeWeatherInfoCard extends StatelessWidget {
   final WType wType;
-  
+
   const TimeWeatherInfoCard(this.wType, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    var appState = context.watch<AstralState>();
     return Card(
       color: const Color.fromRGBO(82, 85, 102, 1.0).withOpacity(0.4),
       elevation: 8.0,
@@ -26,8 +25,8 @@ class TimeWeatherInfoCard extends StatelessWidget {
           children: [
             for (var i = 0; i < 24; i++)
               TimeCard(
-                wType,
-                time: DateTime.now().add(Duration(hours: i)),
+                wType: wType,
+                hour: i,
               ),
           ],
         ),
@@ -37,22 +36,21 @@ class TimeWeatherInfoCard extends StatelessWidget {
 }
 
 class TimeCard extends StatelessWidget {
+  TimeCard({super.key, required this.wType, required this.hour}) {}
+
   final WType wType;
-  final DateTime time;
-  late final String raininess;
-  late final int temp;
-  
-  TimeCard(this.wType, {super.key, required this.time}) {
-    // TODO: Get data from api
-    raininess = "Rainy";
-  }
+  final int hour;
 
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<AstralState>();
     switch (wType) {
       case WType.temperature:
-        temp = -5;
-        return SizedBox(
+        String rainVal = appState.statIdValueMapHourly[WType.precipitationPercentage]![appState.currentDayIndex][hour];
+        String tempVal = appState.statIdValueMapHourly[WType.temperature]![appState.currentDayIndex][hour];
+        String cloudVal = appState.statIdValueMapHourly[WType.cloudPercentage]![appState.currentDayIndex][hour];
+        int snowVal = appState.apiData?.hourlyData.snowfraction[appState.currentDayIndex][hour]??0;
+    return SizedBox(
           height: MediaQuery.of(context).size.height * 0.2,
           child: Card(
             // color: Colors.transparent,
@@ -61,10 +59,10 @@ class TimeCard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text("${time.hour}:00"),
-                  Text(raininess),
-                  const Icon(Icons.water_drop),
-                  Text("$temp°C"),
+                    Text("${hour}:00"),
+                    snowVal == 1 ? Icon(Icons.cloudy_snowing, color: Colors.black) :
+                    int.parse(('0' + rainVal).substring(0, rainVal.length)) < 10 ? Icon(Icons.wb_sunny_outlined, color: Colors.black) : Icon(Icons.water_drop_outlined, color: Colors.black),
+                    Text(tempVal),
                 ],
               ),
             ),
@@ -72,7 +70,6 @@ class TimeCard extends StatelessWidget {
         );
 
       case WType.windSpeed:
-        temp = 5;
         return SizedBox(
           height: MediaQuery.of(context).size.height * 0.2,
           child: Card(
@@ -82,9 +79,7 @@ class TimeCard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text("${time.hour}:00"),
-                  Text(raininess),
-                  Text("$temp°C"),
+                  Text("$hour:00"),
                 ],
               ),
             ),
@@ -101,16 +96,15 @@ class TimeCard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text("${time.hour}:00"),
-                  Text("$temp°C"),
+                  Text("$hour:00"),
                 ],
               ),
             ),
           ),
         );
     }
-      
-      
+
+
     }
   }
 
