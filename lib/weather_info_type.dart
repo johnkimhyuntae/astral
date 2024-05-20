@@ -5,6 +5,6 @@ enum WType {
   temperature,
   feltTemperature,
   humidity,
-  precipitationPercentage,
+  precipitation,
   cloudPercentage,
 }

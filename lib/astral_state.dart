@@ -22,6 +22,7 @@ class AstralState extends ChangeNotifier {
     WType.temperature: "Temperature",
     WType.feltTemperature: "Feels like",
     WType.cloudPercentage: "Cloud Cover",
+    WType.precipitation: "Precipitation",
   };
   Map<WType, List<List<String>>> statIdValueMapHourly = {};
   Map<WType, List<String>> statIdValueMapDailyAverage = {};
@@ -61,11 +62,11 @@ class AstralState extends ChangeNotifier {
     List? daily,
   ]) {
     statIdValueMapHourly[type] = data
-        .map((day) => day.map((e) => "${parse(e)} $unit").toList())
+        .map((day) => day.map((e) => "${parse(e)}$unit").toList())
         .toList();
     if (daily != null) {
       statIdValueMapDailyAverage[type] =
-          daily.map((e) => "${parse(e)} $unit").toList();
+          daily.map((e) => "${parse(e)}$unit").toList();
     }
   }
 
@@ -121,9 +122,9 @@ class AstralState extends ChangeNotifier {
 
       parse(
         (value) {
-          return "${(value as double) * 3.6}"; // ms^-1 -> kmph
+          return ((value as double) * 3.6).toStringAsPrecision(3); // ms^-1 -> kmph
         },
-        "km/h",
+        " km/h",
         WType.windSpeed,
         weatherData.hourlyData.windspeed,
         weatherData.dailyData.windspeed_mean,
@@ -131,9 +132,9 @@ class AstralState extends ChangeNotifier {
 
       parse(
         (value) {
-          return "${(value as double).round()}";
+          return ((value as double)).toStringAsFixed(0);
         },
-        "°C",
+        " °C",
         WType.temperature,
         weatherData.hourlyData.temperature,
         weatherData.dailyData.temperature_mean,
@@ -141,9 +142,9 @@ class AstralState extends ChangeNotifier {
 
       parse(
         (value) {
-          return "${value as double}";
+          return ((value as double)).toStringAsFixed(0);
         },
-        "°C",
+        " °C",
         WType.feltTemperature,
         weatherData.hourlyData.felttemperature,
         weatherData.dailyData.felttemperature_mean,
@@ -161,10 +162,10 @@ class AstralState extends ChangeNotifier {
 
       parse(
         (value) {
-          return "${value as double}";
+          return (value as double).toStringAsPrecision(3);
         },
-        "mm",
-        WType.precipitationPercentage,
+        " mm",
+        WType.precipitation,
         weatherData.hourlyData.precipitation,
         weatherData.dailyData.precipitation,
       );
@@ -248,6 +249,12 @@ class AstralState extends ChangeNotifier {
       crossAxisCellCount: 2,
       mainAxisCellCount: 2,
       widget: WeatherInfoCard(WType.cloudPercentage),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("G"),
+      crossAxisCellCount: 2,
+      mainAxisCellCount: 2,
+      widget: WeatherInfoCard(WType.precipitation),
     ),
   ];
 }
