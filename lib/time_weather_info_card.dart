@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'astral_state.dart';
 
-class TimeWeatherInfoCard extends StatefulWidget {
+class TimeWeatherInfoCard extends StatelessWidget {
   final WType wType;
   
   const TimeWeatherInfoCard(this.wType, {super.key});
@@ -13,18 +13,20 @@ class TimeWeatherInfoCard extends StatefulWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<AstralState>();
-    return SizedBox(
-      // height: MediaQuery.of(context).size.height * 0.2,
-      child: Card(
-        color: const Color.fromRGBO(82, 85, 102, 1.0).withOpacity(0.4),
-        elevation: 8.0,
+    return Card(
+      color: const Color.fromRGBO(82, 85, 102, 1.0).withOpacity(0.4),
+      elevation: 8.0,
+      child: Container(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.2,
+        ),
         child: ListView(
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
           children: [
             for (var i = 0; i < 24; i++)
               TimeCard(
-                widget.wType,
+                wType,
                 time: DateTime.now().add(Duration(hours: i)),
               ),
           ],
@@ -50,49 +52,59 @@ class TimeCard extends StatelessWidget {
     switch (wType) {
       case WType.temperature:
         temp = -5;
-        return Card(
-          // color: Colors.transparent,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text("${time.hour}:00"),
-                Text(raininess),
-                const Icon(Icons.water_drop),
-                Text("$temp°C"),
-              ],
+        return SizedBox(
+          height: MediaQuery.of(context).size.height * 0.2,
+          child: Card(
+            // color: Colors.transparent,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text("${time.hour}:00"),
+                  Text(raininess),
+                  const Icon(Icons.water_drop),
+                  Text("$temp°C"),
+                ],
+              ),
             ),
           ),
         );
 
       case WType.windSpeed:
         temp = 5;
-        return Card(
-          // color: Colors.transparent,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text("${time.hour}:00"),
-                Text(raininess),
-                Text("$temp°C"),
-              ],
+        return SizedBox(
+          height: MediaQuery.of(context).size.height * 0.2,
+          child: Card(
+            // color: Colors.transparent,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text("${time.hour}:00"),
+                  Text(raininess),
+                  Text("$temp°C"),
+                ],
+              ),
             ),
           ),
         );
+
       default:
-        return Card(
-          // color: Colors.transparent,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text("${time.hour}:00"),
-                Text("$temp°C"),
-              ],
+        return SizedBox(
+          height: MediaQuery.of(context).size.height * 0.1,
+          child: Card(
+            // color: Colors.transparent,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text("${time.hour}:00"),
+                  Text("$temp°C"),
+                ],
+              ),
             ),
           ),
         );
