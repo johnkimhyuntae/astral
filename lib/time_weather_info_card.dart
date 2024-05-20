@@ -23,9 +23,9 @@ class TimeWeatherInfoCard extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
           children: [
-            for (var i = 0; i < 24; i++)
+            for (int i = 0; i < 24; i++)
               TimeCard(
-                wType: wType,
+                wType: wType??WType.temperature,
                 hour: i,
               ),
           ],
@@ -49,8 +49,10 @@ class TimeCard extends StatelessWidget {
         String rainVal = appState.statIdValueMapHourly[WType.precipitationPercentage]![appState.currentDayIndex][hour];
         String tempVal = appState.statIdValueMapHourly[WType.temperature]![appState.currentDayIndex][hour];
         String cloudVal = appState.statIdValueMapHourly[WType.cloudPercentage]![appState.currentDayIndex][hour];
-        int snowVal = appState.apiData?.hourlyData.snowfraction[appState.currentDayIndex][hour]??0;
-    return SizedBox(
+        int snow = int.parse((appState.apiData?.hourlyData.snowfraction[appState.currentDayIndex][hour]??0).toString().substring(0, 1)); //takes first digit (ignores decimals)
+        int isDay = int.parse((appState.apiData?.hourlyData.isdaylight[appState.currentDayIndex][hour]??0).toString().substring(0, 1)); //takes first digit (ignores decimals)
+        print(hour);
+        return SizedBox(
           height: MediaQuery.of(context).size.height * 0.2,
           child: Card(
             // color: Colors.transparent,
@@ -60,8 +62,10 @@ class TimeCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                     Text("${hour}:00"),
-                    snowVal == 1 ? Icon(Icons.cloudy_snowing, color: Colors.black) :
-                    int.parse(('0' + rainVal).substring(0, rainVal.length)) < 10 ? Icon(Icons.wb_sunny_outlined, color: Colors.black) : Icon(Icons.water_drop_outlined, color: Colors.black),
+                    snow == 1 ? Icon(Icons.cloudy_snowing, color: Colors.black) :
+                    int.parse(('0' + rainVal).substring(0, rainVal.length)) > 10 ? Icon(Icons.water_drop_outlined, color: Colors.black) :
+                    int.parse(('0' + cloudVal).substring(0, rainVal.length)) > 10 ? Icon(Icons.wb_cloudy_outlined, color: Colors.black) :
+                    isDay == 1 ? Icon(Icons.wb_sunny_outlined, color: Colors.black) : Icon(Icons.nightlight_outlined, color: Colors.black),
                     Text(tempVal),
                 ],
               ),
