@@ -12,7 +12,7 @@ class _TimeWeatherInfoCardState extends State<TimeWeatherInfoCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.2,
+      // height: MediaQuery.of(context).size.height * 0.2,
       child: Card(
         color: const Color.fromRGBO(82, 85, 102, 1.0).withOpacity(0.4),
         elevation: 8.0,

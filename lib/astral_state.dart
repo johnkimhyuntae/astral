@@ -93,9 +93,14 @@ class AstralState extends ChangeNotifier {
     }
   }
 
-  void removeLog(LogData x) {
-    logs.remove(x);
-    return;
+  void removeLog(String requestedId) {
+    for (LogData entry in logs) {
+      if (entry.id == requestedId) {
+        logs.remove(entry);
+        notifyListeners();
+      }
+    }
+    return;                   
   }
 
   DateTime getLatestTime() {

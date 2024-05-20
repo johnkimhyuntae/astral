@@ -63,7 +63,8 @@ class WeatherInfoCard extends StatelessWidget {
                 ],
               ),
               const Positioned(
-                right: 0,
+                top: 5,
+                right: 2,
                 child: Icon(
                   Icons.drag_indicator_outlined,
                   color: Colors.black,
