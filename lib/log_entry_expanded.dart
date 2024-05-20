@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'package:astral/astral_state.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 const Color topBg = Color.fromRGBO(253, 245, 230, 1.0);
 
@@ -21,6 +23,7 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
 
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<AstralState>();
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
@@ -45,11 +48,22 @@ class _LogEntryExpandedState extends State<LogEntryExpanded> {
                           child: Text(
                             widget.title,
                             style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 22,
                                 color: Theme.of(context).colorScheme.primary
                             ),
                           ),
                         )
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5, left: 12.0, bottom: 5.0),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(appState.locationController.text,
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary
+                            ),
+                        ),
                       ),
                     ),
                     Padding(

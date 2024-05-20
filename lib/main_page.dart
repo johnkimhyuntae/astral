@@ -54,7 +54,7 @@ class TopBar extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     backgroundColor: topBg,
                     shape: const CircleBorder()),
-                child: const Icon(Icons.format_list_bulleted, size: 25)),
+                child: const Icon(IconData(0xf0064, fontFamily: 'MaterialIcons'), size: 20)),
             const LocationField(),
             ElevatedButton(
               onPressed: () {
@@ -67,7 +67,7 @@ class TopBar extends StatelessWidget {
                 shape: const CircleBorder(),
               ),
               child: const Icon(
-                Icons.edit,
+                IconData(0xf00e9, fontFamily: 'MaterialIcons'),
                 size: 25,
               ),
             ),

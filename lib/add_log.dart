@@ -70,7 +70,18 @@ class _AddLogState extends State<AddLog> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 20, left: 16.0, bottom: 16.0),
+                      padding: const EdgeInsets.only(top: 10, left: 16.0),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(appState.locationController.text,
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary
+                            ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16.0, bottom: 10.0),
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: Text(DateFormat("EEEE, d MMMM y").format(date),
@@ -81,7 +92,7 @@ class _AddLogState extends State<AddLog> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
+                      padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                       child: Align(
                         alignment: Alignment.topCenter,
                         child: (imageExists) ? 

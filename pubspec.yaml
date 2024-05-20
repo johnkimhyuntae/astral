@@ -66,6 +66,7 @@ flutter:
 
   assets:
     - assets/images/moon.png
+    - assets/images/astral-logo.png
     - assets/weatherIcons/icons8-clouds-50.png
     - assets/weatherIcons/icons8-lightning-bolt-50.png
     - assets/weatherIcons/icons8-heavy-rain-50.png
