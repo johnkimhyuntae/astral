@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class TimeWeatherInfoCard extends StatefulWidget {
   const TimeWeatherInfoCard({super.key});
@@ -10,26 +11,20 @@ class TimeWeatherInfoCard extends StatefulWidget {
 class _TimeWeatherInfoCardState extends State<TimeWeatherInfoCard> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Spacer(),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.2,
-          child: Card(
-              color: const Color.fromRGBO(82, 85, 102, 1.0).withOpacity(0.4),
-              elevation: 8.0,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-                children: [
-                  for (var i = 0; i < 24; i++)
-                    TimeCard(time: DateTime.now().add(Duration(hours: i))),
-                ],
-              ),
-          ),
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.2,
+      child: Card(
+        color: const Color.fromRGBO(82, 85, 102, 1.0).withOpacity(0.4),
+        elevation: 8.0,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+          children: [
+            for (var i = 0; i < 24; i++)
+              TimeCard(time: DateTime.now().add(Duration(hours: i))),
+          ],
         ),
-        const Spacer(),
-      ],
+      ),
     );
   }
 }
