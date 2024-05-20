@@ -56,16 +56,27 @@ class _LogEntryState extends State<LogEntry> {
                       child: Align(
                         alignment: Alignment.topLeft,
                         child: SizedBox(
-                          height: 100,
                           width: 200,
                           child: Text(widget.title,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 18,
                                 color: Theme.of(context).colorScheme.primary
                             ),
                           ),
                         )
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 12.0),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(appState.locationController.text,
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: Theme.of(context).colorScheme.primary
+                            ),
+                        ),
                       ),
                     ),
                     Padding(
@@ -74,6 +85,7 @@ class _LogEntryState extends State<LogEntry> {
                         alignment: Alignment.topLeft,
                         child: Text(DateFormat("EEEE, d MMMM y").format(widget.date),
                             style: TextStyle(
+                              fontSize: 12,
                                 color: Theme.of(context).colorScheme.primary
                             ),
                         ),
