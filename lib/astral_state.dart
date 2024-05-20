@@ -28,6 +28,8 @@ class AstralState extends ChangeNotifier {
   Map<WType, List<List<String>>> statIdValueMapHourly = {};
   Map<WType, List<String>> statIdValueMapDailyAverage = {};
 
+  APIData? apiData;
+
   AstralState() {
     for (var t in WType.values) {
       statIdValueMapHourly[t] = [];
@@ -114,6 +116,7 @@ class AstralState extends ChangeNotifier {
 
   void updateWeather() {
     APIHandler.fetchWeatherData(lat, lon).then((weatherData) {
+      apiData = weatherData;
       parse(
         (value) {
           String s = value as String;
