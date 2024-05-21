@@ -39,7 +39,7 @@ class APIHandler {
       "my.meteoblue.com",
       "packages/basic-1h_basic-day_clouds-1h",
       {
-        "apikey": "A0fdQ5eDnNypHMTZ",
+        "apikey": "rsnRE5HetBLjY4TN",
         "lat": lat.toString(),
         "lon": lon.toString(),
         "asl": "279",
@@ -53,7 +53,7 @@ class APIHandler {
       "my.meteoblue.com",
       "packages/basic-1h_sunmoon",
       {
-        "apikey": "A0fdQ5eDnNypHMTZ",
+        "apikey": "rsnRE5HetBLjY4TN",
         "lat": lat.toString(),
         "lon": lon.toString(),
         "asl": "279",
