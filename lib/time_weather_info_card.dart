@@ -57,7 +57,6 @@ class TimeCard extends StatelessWidget {
         String cloudVal = appState.statIdValueMapHourly[WType.cloudPercentage]![appState.currentDayIndex][hour];
         int snow = int.parse((appState.apiData?.hourlyData.snowfraction[appState.currentDayIndex][hour]??0).toString().substring(0, 1)); //takes first digit (ignores decimals)
         int isDay = int.parse((appState.apiData?.hourlyData.isdaylight[appState.currentDayIndex][hour]??0).toString().substring(0, 1)); //takes first digit (ignores decimals)
-        print(hour);
         return SizedBox(
           height: MediaQuery.of(context).size.height * 0.2,
           child: Card(
@@ -79,24 +78,25 @@ class TimeCard extends StatelessWidget {
           ),
         );
 
-      case WType.windSpeed:
-        return SizedBox(
-          height: MediaQuery.of(context).size.height * 0.2,
-          child: Card(
-            // color: Colors.transparent,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text("$hour:00"),
-                ],
-              ),
-            ),
-          ),
-        );
+      // case WType.windSpeed:
+      //   return SizedBox(
+      //     height: MediaQuery.of(context).size.height * 0.2,
+      //     child: Card(
+      //       // color: Colors.transparent,
+      //       child: Padding(
+      //         padding: const EdgeInsets.all(8.0),
+      //         child: Column(
+      //           mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //           children: [
+      //             Text("$hour:00"),
+      //           ],
+      //         ),
+      //       ),
+      //     ),
+      //   );
 
       default:
+        String displayVal = appState.statIdValueMapHourly[wType]![appState.currentDayIndex][hour];
         return SizedBox(
           height: MediaQuery.of(context).size.height * 0.1,
           child: Card(
@@ -107,6 +107,7 @@ class TimeCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text("$hour:00"),
+                  Text(displayVal),
                 ],
               ),
             ),
