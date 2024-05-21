@@ -12,13 +12,15 @@ An inclusive and customisable weather app specifically designed for all levels o
 4. Run `flutter run` to run the app in the emulator
 
 ### Running on Windows
-1. Navigate to `./Windows` folder
+1. Navigate to `./Executables/Windows` folder
 2. Launch `astral.exe`
+3. Resize the window to an appropriate phone screen size
 
 ### Running on Web
-1. Navigate to `./Web` folder
+1. Navigate to `./Executables/Web` folder
 2. Run `python -m http.server` 
-2. Go to `http://localhost:8000` on your web browser
+3. Go to `http://localhost:8000` on your web browser
+4. Resize the window to an appropriate phone screen size
 
 ## Technologies Used
 - Dart
