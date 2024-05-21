@@ -47,9 +47,6 @@ class DayPage extends StatelessWidget {
   }
 
   Widget moonAndTemperature(AstralState appState) {
-    DateTime latestUpdatedTime =
-        appState.latestUpdatedTime.add(Duration(days: dayIndex));
-    latestUpdatedTime = latestUpdatedTime;
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Center(
@@ -65,8 +62,8 @@ class DayPage extends StatelessWidget {
               ),
             ),
             Text(
-              appState.statIdValueMapDailyAverage[WType.temperature]![
-                  appState.currentDayIndex],
+              appState.statIdValueMapHourly[WType.temperature]![
+                  appState.currentDayIndex][DateTime.now().hour],
               style: const TextStyle(
                 color: Color.fromRGBO(253, 245, 230, 1.0),
                 fontSize: 36,

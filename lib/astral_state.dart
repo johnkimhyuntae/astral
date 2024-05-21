@@ -41,6 +41,10 @@ class AstralState extends ChangeNotifier {
   APIData? apiData;
 
   AstralState() {
+    updateWeather();
+  }
+
+  clearData(){
     for (var t in WType.values) {
       statIdValueMapHourly[t] = [];
       statIdValueMapDailyAverage[t] = [];
@@ -55,7 +59,7 @@ class AstralState extends ChangeNotifier {
         statIdValueMapDailyAverage[t]!.add("⟳");
       }
     }
-    updateWeather();
+    notifyListeners();
   }
 
   List<LogData> logs = [];
@@ -140,6 +144,7 @@ class AstralState extends ChangeNotifier {
       TextEditingController(text: "Cambridge, UK");
 
   void updateWeather() {
+    clearData();
     APIHandler.fetchWeatherData(lat, lon).then((weatherData) {
       apiData = weatherData;
 
@@ -319,10 +324,34 @@ class AstralState extends ChangeNotifier {
       widget: TimeWeatherInfoCard(WType.temperature),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("N"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.moonPhase, expandable: false),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("B"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
       widget: WeatherInfoCard(WType.cloudPercentage),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("O"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.moonrise, expandable: false),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("D"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.fogPercentage),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("P"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.moonset, expandable: false),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("C"),
@@ -331,10 +360,16 @@ class AstralState extends ChangeNotifier {
       widget: WeatherInfoCard(WType.feltTemperature),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
-      key: Key("D"),
+      key: Key("J"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.fogPercentage),
+      widget: WeatherInfoCard(WType.uvIndex),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("H"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.sunshineMinutes),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("E"),
@@ -355,18 +390,6 @@ class AstralState extends ChangeNotifier {
       widget: WeatherInfoCard(WType.precipitationPercentage),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
-      key: Key("H"),
-      crossAxisCellCount: 1,
-      mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.sunshineMinutes),
-    ),
-    const ReorderableStaggeredScrollViewGridCountItem(
-      key: Key("J"),
-      crossAxisCellCount: 1,
-      mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.uvIndex),
-    ),
-    const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("K"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
@@ -383,24 +406,6 @@ class AstralState extends ChangeNotifier {
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
       widget: WeatherInfoCard(WType.windSpeed),
-    ),
-    const ReorderableStaggeredScrollViewGridCountItem(
-      key: Key("N"),
-      crossAxisCellCount: 1,
-      mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.moonPhase, expandable: false),
-    ),
-    const ReorderableStaggeredScrollViewGridCountItem(
-      key: Key("O"),
-      crossAxisCellCount: 1,
-      mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.moonrise, expandable: false),
-    ),
-    const ReorderableStaggeredScrollViewGridCountItem(
-      key: Key("P"),
-      crossAxisCellCount: 1,
-      mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.moonset, expandable: false),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("Q"),
