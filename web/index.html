@@ -38,8 +38,25 @@
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
+  <style>
+    /* Center the loading indicator */
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #242638; /* Optional: add a background color */
+    }
+    .center img {
+      width: 100px; /* Adjust the size as needed */
+      height: 100px;
+    }
+  </style>
 </head>
 <body>
+  <div id="loading" class="center">
+    <img src="assets/images/astral-logo.png" alt="Loading...">
+  </div>
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
