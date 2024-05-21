@@ -141,52 +141,6 @@ class WeatherInfoCardExpanded extends StatelessWidget {
 
                     const SizedBox(height: 30),
 
-                    // Daily Summary
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Daily Summary',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Wind is currently $value from the NE. Today, wind speeds are $value to $value km/h, with gusts up to $value km/h.',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 30),
-
-                    // Daily Comparison
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Daily Comparison',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'The peak wind speed today is lower than yesterday.',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 30),
-
                     // About [weather metric]
                     Align(
                       alignment: Alignment.centerLeft,
