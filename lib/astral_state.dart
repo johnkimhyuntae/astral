@@ -388,31 +388,31 @@ class AstralState extends ChangeNotifier {
       key: Key("N"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.moonPhase),
+      widget: WeatherInfoCard(WType.moonPhase, expandable: false),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("O"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.moonrise),
+      widget: WeatherInfoCard(WType.moonrise, expandable: false),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("P"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.moonset),
+      widget: WeatherInfoCard(WType.moonset, expandable: false),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("Q"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.sunrise),
+      widget: WeatherInfoCard(WType.sunrise, expandable: false),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("R"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.sunset),
+      widget: WeatherInfoCard(WType.sunset, expandable: false),
     ),
   ];
 }

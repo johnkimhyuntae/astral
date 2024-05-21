@@ -8,15 +8,16 @@ import 'weather_info_type.dart';
 
 class WeatherInfoCard extends StatelessWidget {
   final WType wType;
+  final bool expandable;
 
-  const WeatherInfoCard(this.wType, {super.key});
+  const WeatherInfoCard(this.wType, {super.key, this.expandable = true});
 
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<AstralState>();
     return Material(
       child: InkWell(
-        onTap: () {
+        onTap: (expandable) ? () {
           Navigator.push(
             context,
             PageRouteBuilder(
@@ -34,7 +35,7 @@ class WeatherInfoCard extends StatelessWidget {
               reverseTransitionDuration: Duration.zero,
             ),
           );
-        },
+        } : () {},
         child: Card(
           child: Padding(
             padding: const EdgeInsets.all(2.0),
