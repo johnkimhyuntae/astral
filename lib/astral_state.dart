@@ -18,14 +18,14 @@ class AstralState extends ChangeNotifier {
 
   Map<WType, String> statIdTitleMap = {
     WType.cloudPercentage: "Cloud Cover",
-    WType.feltTemperature: "Feels like",
+    WType.feltTemperature: "Feels Like",
     WType.fogPercentage: "Fog",
     WType.humidity: "Humidity",
     WType.precipitation: "Rainfall",
     WType.precipitationPercentage: "Precipitation",
     WType.sunshineMinutes: "Sunshine",
     WType.temperature: "Temperature",
-    WType.uvIndex: "Uv Index",
+    WType.uvIndex: "UV Index",
     WType.visibility: "Visibility",
     WType.windDirection: "Wind Direction",
     WType.windSpeed: "Wind Speed",
@@ -37,6 +37,27 @@ class AstralState extends ChangeNotifier {
   };
   Map<WType, List<List<String>>> statIdValueMapHourly = {};
   Map<WType, List<String>> statIdValueMapDailyAverage = {};
+
+  // "About" descriptions for each wType
+  Map<WType, String> statIdAboutMap = {
+    WType.windSpeed: "The wind speed is calculated using the average over a short period of time. Gusts are short bursts of wind above this average. A gust typically lasts under 20 seconds.",
+    WType.feltTemperature: "The temperature is the average over a short period of time. The 'Feels Like' temperature is the temperature perceived by humans, taking into account wind speed and humidity.",
+    WType.cloudPercentage: "The cloud cover is the fraction of the sky covered by clouds. A value of 0% means the sky is clear, while 100% means the sky is completely overcast.",
+    WType.fogPercentage: "The fog percentage is the likelihood of fog forming. A value of 0% means no fog, while 100% means fog is certain.",
+    WType.humidity: "The humidity is the amount of water vapour in the air. A value of 0% means the air is completely dry, while 100% means the air is completely saturated.",
+    WType.precipitation: "The precipitation is the amount of rain or snow that falls in a given time period. A value of 0mm means no precipitation, while 100mm means a very heavy downpour.",
+    WType.precipitationPercentage: "The precipitation percentage is the likelihood of precipitation occurring. A value of 0% means no precipitation, while 100% means precipitation is certain.",
+    WType.sunshineMinutes: "The sunshine minutes is the amount of time the sun is visible in a given time period. A value of 0 minutes means no sunshine, while 60 minutes means the sun is visible for the entire hour.",
+    WType.temperature: "The temperature is the average over a short period of time. It is measured in degrees Celsius.",
+    WType.uvIndex: "The UV index is a measure of the strength of the sun's ultraviolet radiation. A value of 0 means low risk of harm from unprotected sun exposure, while 11+ means extreme risk of harm.",
+    WType.visibility: "The visibility is the distance at which objects can be clearly seen. A value of 0km means no visibility, while 10km means excellent visibility.",
+    WType.windDirection: "The wind direction is the direction from which the wind is blowing. It is measured in compass directions.",
+    WType.moonrise: "The moonrise is the time at which the moon first becomes visible above the horizon.",
+    WType.moonset: "The moonset is the time at which the moon last becomes visible above the horizon.",
+    WType.moonPhase: "The moon phase is the shape of the illuminated portion of the moon as seen from Earth. The different phases are new moon, waxing crescent, first quarter, waxing gibbous, full moon, waning gibbous, last quarter, and waning crescent.",
+    WType.sunrise: "The sunrise is the time at which the sun first becomes visible above the horizon.",
+    WType.sunset: "The sunset is the time at which the sun last becomes visible above the horizon.",
+  };
 
   APIData? apiData;
 
@@ -425,16 +446,34 @@ class AstralState extends ChangeNotifier {
       widget: WeatherInfoCard(WType.windSpeed),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("N"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.moonPhase),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("O"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.moonrise),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
+      key: Key("P"),
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      widget: WeatherInfoCard(WType.moonset),
+    ),
+    const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("Q"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.sunrise, expandable: false),
+      widget: WeatherInfoCard(WType.sunrise),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("R"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.sunset, expandable: false),
+      widget: WeatherInfoCard(WType.sunset),
     ),
   ];
 }

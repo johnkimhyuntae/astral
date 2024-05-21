@@ -8,16 +8,15 @@ import 'weather_info_type.dart';
 
 class WeatherInfoCard extends StatelessWidget {
   final WType wType;
-  final bool expandable;
 
-  const WeatherInfoCard(this.wType, {super.key, this.expandable = true});
+  const WeatherInfoCard(this.wType, {super.key});
 
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<AstralState>();
     return Material(
       child: InkWell(
-        onTap: (expandable) ? () {
+        onTap: () {
           Navigator.push(
             context,
             PageRouteBuilder(
@@ -35,7 +34,7 @@ class WeatherInfoCard extends StatelessWidget {
               reverseTransitionDuration: Duration.zero,
             ),
           );
-        } : () {},
+        },
         child: Card(
           child: Padding(
             padding: const EdgeInsets.all(2.0),
@@ -109,6 +108,9 @@ class WeatherInfoCardExpanded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var appState = context.watch<AstralState>();
+    final bool hasHourlyData = !appState.statIdValueMapHourly[wType]![0].contains("⟳");
+
     return Center(
       child: AspectRatio(
         aspectRatio: 1,
@@ -132,9 +134,9 @@ class WeatherInfoCardExpanded extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(height: 30),
+                    if (hasHourlyData) const SizedBox(height: 30),
 
-                    SizedBox(
+                    if (hasHourlyData) SizedBox(
                       height: MediaQuery.of(context).size.height * 0.2,
                       child: TimeWeatherInfoCard(wType)
                     ),
@@ -156,7 +158,7 @@ class WeatherInfoCardExpanded extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'The wind speed is calculated using the average over a short period of time. Gusts are short bursts of wind above this average. A gust typically lasts under 20 seconds.',
+                        appState.statIdAboutMap[wType]!,
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.primary,
                         ),
