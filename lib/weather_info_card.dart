@@ -133,7 +133,10 @@ class WeatherInfoCardExpanded extends StatelessWidget {
 
                     const SizedBox(height: 30),
 
-                    TimeWeatherInfoCard(wType),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.2,
+                      child: TimeWeatherInfoCard(wType)
+                    ),
 
                     const SizedBox(height: 30),
 
