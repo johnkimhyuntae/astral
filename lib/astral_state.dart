@@ -365,7 +365,7 @@ class AstralState extends ChangeNotifier {
       key: Key("N"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.moonPhase, expandable: false),
+      widget: WeatherInfoCard(WType.moonPhase),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("B"),
@@ -377,7 +377,7 @@ class AstralState extends ChangeNotifier {
       key: Key("O"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.moonrise, expandable: false),
+      widget: WeatherInfoCard(WType.moonrise),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("D"),
@@ -389,7 +389,7 @@ class AstralState extends ChangeNotifier {
       key: Key("P"),
       crossAxisCellCount: 1,
       mainAxisCellCount: 1,
-      widget: WeatherInfoCard(WType.moonset, expandable: false),
+      widget: WeatherInfoCard(WType.moonset),
     ),
     const ReorderableStaggeredScrollViewGridCountItem(
       key: Key("C"),
