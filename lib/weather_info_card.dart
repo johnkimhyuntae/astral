@@ -69,6 +69,7 @@ class WeatherInfoCard extends StatelessWidget {
                             color: Theme.of(context).colorScheme.primary,
                             fontSize: constraints.maxWidth / 5,
                           ),
+                          textAlign: TextAlign.center,
                         );
                       }
                     ),

@@ -17,6 +17,8 @@ class MouseTouchScrollBehavior extends MaterialScrollBehavior {
       };
 }
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 class AstralApp extends StatelessWidget {
   const AstralApp({super.key});
 
@@ -33,6 +35,7 @@ class AstralApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => AstralState(),
       child: MaterialApp(
+        navigatorKey: navigatorKey, // Setting a global key for navigator
         title: 'Astral',
         scrollBehavior: MouseTouchScrollBehavior(),
         theme: ThemeData(

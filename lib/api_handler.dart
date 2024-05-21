@@ -6,10 +6,14 @@ class APIHandler {
   static Future<({double lat, double lon, String loc})?> fetchLatLon(
       location) async {
     print('Starting Location API call');
-    var uri = Uri.https("www.meteoblue.com", "/en/server/search/query3", {
-      "query": location, // prevent injection
-      "apikey": "A0fdQ5eDnNypHMTZ",
-    },);
+    var uri = Uri.https(
+      "www.meteoblue.com",
+      "/en/server/search/query3",
+      {
+        "query": location, // prevent injection
+        "apikey": "A0fdQ5eDnNypHMTZ",
+      },
+    );
     print(uri);
     final response = await http.get(uri);
     print('Received Location API response');
@@ -18,16 +22,12 @@ class APIHandler {
       // If the server did return a 200 OK response,
       // then parse the JSON.
       var json = jsonDecode(response.body) as Map<String, dynamic>;
-      try {
-        var latLon = json["results"][0];
-        return (
-          lat: latLon['lat'] as double,
-          lon: latLon['lon'] as double,
-          loc: latLon["name"] as String,
-        );
-      } catch (_) {
-        return null;
-      }
+      var latLon = json["results"][0];
+      return (
+        lat: latLon['lat'] as double,
+        lon: latLon['lon'] as double,
+        loc: latLon["name"] as String,
+      );
     } else {
       return null;
     }
@@ -222,7 +222,8 @@ class APIData {
     required this.dailyData,
   });
 
-  factory APIData.fromJson(Map<String, dynamic> json, Map<String, dynamic> moonJson) {
+  factory APIData.fromJson(
+      Map<String, dynamic> json, Map<String, dynamic> moonJson) {
     var hourly = json["data_1h"];
     var daily = json["data_day"];
     var moon = moonJson["data_day"];
