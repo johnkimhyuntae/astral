@@ -71,7 +71,7 @@ class AstralState extends ChangeNotifier {
       WType type,
       List daily) {
     statIdValueMapDailyAverage[type] =
-        daily.map((e) => (e as String).toUpperCase()).toList();
+        daily.map((e) => (e as String)).toList();
   }
 
   void parseType<T>(
@@ -138,6 +138,23 @@ class AstralState extends ChangeNotifier {
   ScrollController scrollController = ScrollController();
   TextEditingController locationController =
       TextEditingController(text: "Cambridge, UK");
+
+  List<String> turnToCapitalAtStart(List<String> vals) {
+    List<String> newVals = [];
+    for (String val in vals) {
+      val = val.substring(0, 1).toUpperCase() +
+          val.substring(1, val.length).toLowerCase();
+      for (int i = 1; i < val.length; i++) {
+        if ((val.substring(i, i + 1) == " ") && (i + 1 != val.length) && (i + 2 != val.length)) {
+          val =
+              val.substring(0, i + 1) + val.substring(i + 1, i + 2).toUpperCase() +
+                  val.substring(i + 2, val.length);
+        }
+      }
+      newVals.add(val);
+    }
+    return newVals;
+  }
 
   void updateWeather() {
     APIHandler.fetchWeatherData(lat, lon).then((weatherData) {
@@ -254,7 +271,7 @@ class AstralState extends ChangeNotifier {
 
       parseAstro(
         WType.moonPhase,
-        weatherData.dailyData.moonphasename,
+        turnToCapitalAtStart(weatherData.dailyData.moonphasename.map((x) => x as String).toList() as List<String>),
       );
 
       parseAstro(
@@ -289,14 +306,14 @@ class AstralState extends ChangeNotifier {
       parseType(
         (value) {
           final compassDirections = [
-            "N",
-            "NE",
-            "E",
-            "SE",
-            "S",
-            "SW",
-            "W",
-            "NW"
+            "North",
+            "North-East",
+            "East",
+            "South-East",
+            "South",
+            "South-West",
+            "West",
+            "North-West"
           ];
           return compassDirections[min(((value as int) + 22) ~/ 45, 7)];
         },
