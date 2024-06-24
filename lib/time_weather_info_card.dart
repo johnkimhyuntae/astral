@@ -56,7 +56,7 @@ class TimeCard extends StatelessWidget {
                   Text("${hour}:00"),
                   snow == 1 ? Icon(Icons.cloudy_snowing, color: Colors.black) :
                   int.parse(('0' + rainVal).substring(0, rainVal.length)) > 10 ? Icon(Icons.water_drop_outlined, color: Colors.black) :
-                  int.parse(('0' + cloudVal).substring(0, rainVal.length)) > 10 ? Icon(Icons.wb_cloudy_outlined, color: Colors.black) :
+                  int.parse(('0' + cloudVal).substring(0, cloudVal.length)) > 10 ? Icon(Icons.wb_cloudy_outlined, color: Colors.black) :
                   isDay == 1 ? Icon(Icons.wb_sunny_outlined, color: Colors.black) : Icon(Icons.nightlight_outlined, color: Colors.black),
                   Text(tempVal),
               ],
